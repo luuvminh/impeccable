@@ -1,0 +1,13 @@
+{
+  "name": "impeccable-workspace",
+  "private": true,
+  "type": "module",
+  "description": "Impeccable design skill installed for this project. These deps let the Impeccable hook and in-skill detector run at full fidelity instead of degraded regex mode.",
+  "engines": { "node": ">=22.18.0" },
+  "dependencies": {
+    "css-select": "^7.0.0",
+    "css-tree": "^3.2.1",
+    "domutils": "^4.0.2",
+    "htmlparser2": "^12.0.0"
+  }
+}
