@@ -197,12 +197,12 @@ const endX = notes[notes.length - 1].x + 40;
     display: none;
   }
 
-  /* Engraving has a natural size. Letting the system stretch to the full
-     column scales one staff space to ~22px and the notation reads as a
-     blown-up graphic instead of a printed system. */
+  /* Engraving has a natural size, but a clipped system reads as an engraving
+     error — and on a phone the column is narrower than any comfortable
+     minimum. So the system always fits its column and simply engraves
+     smaller, the way a pocket score does. */
   .system__svg {
     width: 100%;
-    min-width: 420px;
     max-width: 620px;
     height: auto;
   }
@@ -233,7 +233,8 @@ const endX = notes[notes.length - 1].x + 40;
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
-    padding: 0.5rem 1rem 0.5rem 0.75rem;
+    padding: 0.7rem 1.15rem 0.7rem 0.9rem;
+    min-height: 44px;
     border: 1.5px solid var(--ink);
     background: var(--paper);
     color: var(--ink);

@@ -138,16 +138,15 @@ const sections = [
       <div class="room__stage">
         <div class="room__video">
           <div class="pending">
-            <b>Chỗ này chờ video thật.</b> Một đoạn Mây đàn, và một đoạn Mây dạy:
-            hai video khác nhau, vì người xem cần biết cả hai. Gửi file là em ghép vào.
+            <b>Video Mây đàn, và Mây dạy.</b> Hai đoạn khác nhau: một để nghe tiếng
+            đàn, một để thấy cách hướng dẫn. Đang được dựng và sẽ lên ở đúng chỗ này.
           </div>
         </div>
         <div class="room__bio">
           <h3>Mây là ai</h3>
           <div class="pending">
-            <b>Chờ học vị và kinh nghiệm thật.</b> Học ở đâu, dạy bao nhiêu năm, từng
-            biểu diễn hay giảng dạy ở đâu. Em không viết thay phần này, vì nó phải đúng
-            từng chữ.
+            <b>Học vị và kinh nghiệm của Mây.</b> Học ở đâu, dạy bao nhiêu năm, từng
+            biểu diễn và giảng dạy ở đâu. Sẽ ghi đúng từng chữ, không tô vẽ thêm.
           </div>
           <p class="room__bio-note">
             Đây là bằng chứng mạnh nhất mà khoá học đang có, nên nó được đặt ở
@@ -175,7 +174,16 @@ const sections = [
           levels.map((lv) => (
             <li class="lv" id={lv.id}>
               <div class="lv__mark" aria-hidden="true">
-                <span class="music lv__dyn">{lv.dyn}</span>
+                {/* Every level row is its own short system, so the contract's
+                    "five-line staves are the layout grid" holds past the fold. */}
+                <svg class="stave lv__stave" viewBox="0 -6 92 86" role="presentation">
+                  {[0, 1, 2, 3, 4].map((n) => (
+                    <rect class="stave__line" x="0" y={n * 10 - 0.65} width="92" height="1.3" />
+                  ))}
+                  <text class="stave__glyph" x="6" y="66" font-size="40">
+                    {lv.dyn}
+                  </text>
+                </svg>
               </div>
               <div class="lv__body">
                 <h3 class="lv__name">
@@ -192,13 +200,16 @@ const sections = [
                 </ul>
               </div>
               <div class="lv__buy">
-                <div class="pending pending--price">
-                  <b>Giá chưa chốt</b>
-                </div>
-                <button type="button" class="lv__btn" disabled>
+                <a class="lv__btn" href="https://maypiano.me" rel="noopener">
                   Mua Cấp {lv.n}
-                </button>
-                <p class="lv__btn-note">Nút mở khi có giá và cổng thanh toán.</p>
+                  <svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+                    <path d="M4 10h11M11 5.5 15.5 10 11 14.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+                <p class="lv__btn-note">
+                  Giá và thanh toán hiện ở trên maypiano.me. Trang này sẽ nhận thanh
+                  toán trực tiếp trong thời gian tới.
+                </p>
               </div>
             </li>
           ))
@@ -221,9 +232,8 @@ const sections = [
 
       <div class="students__slots">
         <div class="pending">
-          <b>Chờ nhận xét thật từ học viên cũ trên Teachable.</b> Gửi nguyên văn kèm
-          tên họ cho phép hiện. Em không viết mẫu và không dựng tên giả. Một lời khen
-          bịa ra trên trang bán khoá học là thứ hỏng nhanh nhất.
+          <b>Nhận xét của những người đã học.</b> Sẽ đăng nguyên văn, kèm tên người
+          viết cho phép hiện. Trang này không đăng lời khen dựng sẵn.
         </div>
       </div>
 
@@ -248,9 +258,9 @@ const sections = [
         <div class="how__item">
           <h3>Trả tiền theo cách tiện cho bạn</h3>
           <p>
-            Ở Việt Nam: quét mã QR chuyển khoản vào tài khoản trong nước, khoá học mở
-            ngay sau khi tiền vào. Ở Mỹ, Canada, Úc hay Châu Âu: trả bằng thẻ
-            VISA hoặc Mastercard.
+            Ở Việt Nam: quét mã QR chuyển khoản vào tài khoản trong nước. Ở Mỹ,
+            Canada, Úc hay Châu Âu: trả bằng thẻ VISA hoặc Mastercard. Hai đường
+            đều là đường chính, không đường nào là phương án chữa cháy.
           </p>
         </div>
         <div class="how__item">
@@ -268,11 +278,14 @@ const sections = [
           </p>
         </div>
         <div class="how__item">
-          <h3>Xem lại bao lâu tuỳ ý</h3>
+          <h3>Tua lại bao nhiêu lần cũng được</h3>
           <p>
-            Bài giảng không hết hạn theo buổi. Một câu nhạc khó thì tua lại mười lần
-            cũng được, không ai đợi.
+            Không có buổi học trôi qua một lần rồi thôi. Một câu nhạc khó thì tua
+            lại mười lần, không ai đợi và không ai nhìn.
           </p>
+          <div class="pending">
+            <b>Thời hạn truy cập</b> sẽ ghi rõ ở đây.
+          </div>
         </div>
       </div>
     </div>
@@ -281,7 +294,10 @@ const sections = [
   <!-- ============================ CODA ============================ -->
   <section class="coda" aria-labelledby="h-coda">
     <div class="page coda__inner">
-      <h2 id="h-coda" class="coda__h">Bắt đầu từ Cấp I</h2>
+      <div class="coda__head">
+        <span class="music coda__sign" aria-hidden="true">&#xE048;</span>
+        <h2 id="h-coda" class="coda__h">Bắt đầu từ Cấp I</h2>
+      </div>
       <p class="coda__p">
         Không cần biết nhạc lý. Không cần đàn xịn. Chỉ cần ngồi xuống được
         mười lăm phút mỗi ngày.
@@ -292,6 +308,15 @@ const sections = [
           <path d="M4 10h11M11 5.5 15.5 10 11 14.5" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
       </a>
+
+      {/* A score ends on a final barline, so the page does too. */}
+      <svg class="stave coda__close" viewBox="0 -2 400 44" role="presentation">
+        {[0, 1, 2, 3, 4].map((n) => (
+          <rect class="stave__line" x="0" y={n * 10 - 0.65} width="400" height="1.3" />
+        ))}
+        <rect class="stave__line" x="388" y="0" width="1.6" height="40" />
+        <rect class="stave__line" x="394" y="0" width="5" height="40" />
+      </svg>
     </div>
   </section>
 
@@ -299,8 +324,7 @@ const sections = [
     <div class="page foot__inner">
       <p class="foot__name">Mây Piano</p>
       <p class="foot__meta">
-        Khoá piano online dạy bằng tiếng Việt. Trang đang dựng, nội dung thật
-        đang được bổ sung.
+        Khoá piano online dạy bằng tiếng Việt, do Mây trực tiếp hướng dẫn.
       </p>
     </div>
   </footer>
@@ -412,14 +436,17 @@ const sections = [
 
   .title-page__demo-note {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
-    gap: 0.5rem;
+    gap: 0.25rem 0.5rem;
     margin-top: var(--s-2);
     font-size: var(--t-small);
     color: var(--ink-3);
   }
+  /* Not the action colour: this marks unfinished work, and it sits directly
+     above the CTA. */
   .title-page__demo-note b {
-    color: var(--edit);
+    color: var(--ink-2);
     font-weight: 500;
   }
   .title-page__demo-note .music {
@@ -504,7 +531,7 @@ const sections = [
   }
   .margin-note__sign {
     font-size: var(--t-small);
-    color: var(--edit-soft);
+    color: var(--edit);
   }
 
   /* ---------------------------------------------------------------
@@ -517,20 +544,19 @@ const sections = [
     top: 0;
     z-index: 10;
   }
+  /* Wraps rather than scrolls: a hidden scrollbar was hiding destination D
+     off the right edge on a phone. */
   .marks__inner {
     display: flex;
-    gap: clamp(1rem, 3.5vw, 2.5rem);
-    overflow-x: auto;
-    padding-block: 0.7rem;
-    scrollbar-width: none;
-  }
-  .marks__inner::-webkit-scrollbar {
-    display: none;
+    flex-wrap: wrap;
+    gap: 0.25rem clamp(1rem, 3.5vw, 2.5rem);
+    padding-block: 0.4rem;
   }
   .marks__item {
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
+    min-height: 44px;
     text-decoration: none;
     white-space: nowrap;
     color: var(--ink-2);
@@ -596,16 +622,19 @@ const sections = [
       align-items: start;
     }
   }
+  .room :focus-visible {
+    outline-color: var(--focus-dark);
+  }
   .room__video .pending {
-    background: rgba(200, 86, 76, 0.14);
-    color: #f0b3ad;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--pending-ink-dark);
     min-height: 220px;
     display: grid;
     align-content: center;
   }
   .room__video .pending::before,
   .room__video .pending::after {
-    border-color: #f0b3ad;
+    border-color: var(--pending-line-dark);
   }
   .room__bio {
     display: grid;
@@ -615,12 +644,12 @@ const sections = [
     color: var(--room-ink);
   }
   .room__bio .pending {
-    background: rgba(200, 86, 76, 0.14);
-    color: #f0b3ad;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--pending-ink-dark);
   }
   .room__bio .pending::before,
   .room__bio .pending::after {
-    border-color: #f0b3ad;
+    border-color: var(--pending-line-dark);
   }
   .room__bio-note {
     font-size: var(--t-small);
@@ -686,10 +715,14 @@ const sections = [
     align-items: flex-start;
     justify-content: flex-start;
   }
-  .lv__dyn {
-    font-size: clamp(2.4rem, 5vw, 3.4rem);
-    color: var(--press);
-    line-height: 0.8;
+  .lv__stave {
+    width: 5rem;
+    color: var(--paper-edge);
+  }
+  @media (min-width: 940px) {
+    .lv__stave {
+      width: 5.5rem;
+    }
   }
 
   .lv__body {
@@ -761,24 +794,44 @@ const sections = [
       justify-items: stretch;
     }
   }
-  .pending--price {
-    padding: 0.6rem 0.75rem 0.6rem 1.1rem;
-    font-size: var(--t-small);
-  }
+  /* A live route to today's checkout. Outlined rather than filled: the page's
+     loud red belongs to the one primary action and to Mây's pencil. */
   .lv__btn {
-    padding: 0.75rem 1.25rem;
-    border: 1.5px solid var(--ink-3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    min-height: 44px;
+    padding: 0.7rem 1.1rem;
+    border: 1.5px solid var(--ink);
     background: transparent;
-    color: var(--ink-3);
+    color: var(--ink);
     font-family: var(--face-text);
     font-size: var(--t-body);
     font-weight: 600;
-    cursor: not-allowed;
+    text-decoration: none;
     width: 100%;
+    transition:
+      background 160ms var(--ease),
+      color 160ms var(--ease),
+      border-color 160ms var(--ease);
+  }
+  .lv__btn:hover {
+    background: var(--edit);
+    border-color: var(--edit);
+    color: var(--paper);
+  }
+  .lv__btn svg {
+    flex: none;
+    transition: transform 160ms var(--ease);
+  }
+  .lv__btn:hover svg {
+    transform: translateX(3px);
   }
   .lv__btn-note {
-    font-size: var(--t-micro);
+    font-size: var(--t-small);
     color: var(--ink-3);
+    line-height: 1.5;
   }
 
   /* ---------------------------------------------------------------
@@ -838,9 +891,25 @@ const sections = [
     gap: var(--s-3);
     justify-items: start;
   }
+  .coda__head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-3);
+    flex-wrap: wrap;
+  }
+  .coda__sign {
+    font-size: 1.6rem;
+    color: rgba(223, 231, 225, 0.55);
+  }
   .coda__h {
     color: var(--press-ink);
     font-size: var(--t-h2);
+  }
+  .coda__close {
+    width: 100%;
+    max-width: 420px;
+    margin-top: var(--s-3);
+    color: rgba(223, 231, 225, 0.4);
   }
   .coda__p {
     color: rgba(223, 231, 225, 0.78);

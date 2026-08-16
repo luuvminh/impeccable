@@ -10,12 +10,27 @@
   --paper-edge: #d5d9d0;
   --ink: #12151a;            /* printing ink */
   --ink-2: #3a4048;          /* engraved secondary */
-  --ink-3: #6d7580;          /* staff-line grey, captions */
+  --ink-3: #5a626c;          /* captions — 5.34:1 on paper, 4.95:1 on paper-2 */
 
-  /* ---- the teacher's pencil ---- */
-  --edit: #a32b22;
-  --edit-soft: #c8564c;
+  /* ---- the teacher's pencil ----
+     Saturated red is reserved for two jobs only: the primary action, and
+     Mây's own margin hand. Nothing else on the page may claim it. */
+  --edit: #a32b22;           /* 6.2:1 on paper */
+  --edit-soft: #c8564c;      /* decorative rules only, never text */
   --edit-wash: rgba(163, 43, 34, 0.09);
+
+  /* ---- unresolved passages ----
+     An editor's bracket is a note to the engraver, not a call to action, so
+     it is set in ink and must stay quieter than the CTA. */
+  --pending-ink: #3a4048;
+  --pending-line: #8e8079;
+  --pending-wash: rgba(163, 43, 34, 0.045);
+  --pending-ink-dark: #cdd3d6;
+  --pending-line-dark: #7d8890;
+
+  /* Editor's red is only 2.7:1 on the room's ground, so the dark passage
+     carries its own focus colour. */
+  --focus-dark: #e08a80;     /* 7.5:1 on --room */
 
   /* ---- press green: fields, not hairlines ---- */
   --press: #24463c;

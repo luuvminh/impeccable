@@ -145,7 +145,10 @@ video {
 
 /* A rehearsal mark is how a score names a place so a teacher can say
    "from B". It is navigation, not ornament, so it carries a real anchor. */
+/* The box is 29px because that is what a rehearsal mark looks like, so the
+   touch target is grown around it instead of inflating the box. */
 .rehearsal {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -162,10 +165,36 @@ video {
   text-decoration: none;
 }
 
+a.rehearsal::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+}
+
 .music {
   font-family: var(--face-music);
   line-height: 1;
   font-weight: 400;
+}
+
+/* A stave fragment: five lines the content actually sits on. */
+.stave {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--ink);
+}
+.stave__line {
+  fill: currentColor;
+  opacity: 0.85;
+}
+.stave__glyph {
+  font-family: var(--face-music);
+  fill: var(--press);
 }
 
 /* ---------------------------------------------------------------
@@ -178,8 +207,8 @@ video {
   position: relative;
   display: block;
   padding: var(--s-3) var(--s-3) var(--s-3) calc(var(--s-3) + 0.5rem);
-  background: var(--edit-wash);
-  color: var(--edit);
+  background: var(--pending-wash);
+  color: var(--pending-ink);
   font-size: var(--t-small);
   line-height: 1.55;
 }
@@ -191,15 +220,15 @@ video {
   left: 0;
   width: 0.5rem;
   height: 0.5rem;
-  border-left: 1.5px solid var(--edit);
+  border-left: 1.5px solid var(--pending-line);
 }
 .pending::before {
   top: 0;
-  border-top: 1.5px solid var(--edit);
+  border-top: 1.5px solid var(--pending-line);
 }
 .pending::after {
   bottom: 0;
-  border-bottom: 1.5px solid var(--edit);
+  border-bottom: 1.5px solid var(--pending-line);
 }
 
 .pending b {
