@@ -1,0 +1,880 @@
+---
+import Base from '../layouts/Base.astro';
+import PlayableSystem from '../components/PlayableSystem.astro';
+
+// Level names and shape are authored; prices and exact curriculum are the
+// owner's to supply, and are marked pending rather than invented.
+const levels = [
+  {
+    id: 'vo-long',
+    dyn: '',
+    dynName: 'pianissimo',
+    n: 'I',
+    name: 'Vỡ lòng',
+    who: 'Chưa từng chạm vào đàn.',
+    body:
+      'Bắt đầu từ chỗ thật sự bắt đầu: ngồi thế nào, đặt tay ra sao, nốt trên trang giấy nằm ở đâu trên phím. Hết cấp này bạn chơi được một giai điệu hai tay, chậm và đúng.',
+    out: ['Đọc được khuông nhạc khoá Sol', 'Hai tay chơi rời rồi ghép', 'Giữ được nhịp đều'],
+  },
+  {
+    id: 'nen-tang',
+    dyn: '',
+    dynName: 'mezzo-piano',
+    n: 'II',
+    name: 'Nền tảng',
+    who: 'Đã đọc được nốt, còn vấp khi ghép hai tay.',
+    body:
+      'Hợp âm cơ bản và các thế bấm quen thuộc. Đây là cấp mà đa số người học tự bỏ cuộc vì tay trái không theo kịp, nên phần lớn thời lượng dành cho đúng chỗ đó.',
+    out: ['Hợp âm trưởng, thứ và thế đảo', 'Đệm được một bài hát đơn giản', 'Chuyển hợp âm không ngắt nhịp'],
+  },
+  {
+    id: 'vung-nhip',
+    dyn: '',
+    dynName: 'mezzo-forte',
+    n: 'III',
+    name: 'Vững nhịp',
+    who: 'Đệm được rồi, muốn nghe hay hơn.',
+    body:
+      'Pedal, sắc thái, và các kiểu đệm khác nhau cho cùng một bài. Từ đây tiếng đàn bắt đầu nghe ra là của một người chứ không phải của một máy đếm nhịp.',
+    out: ['Dùng pedal đúng chỗ', 'Nhiều kiểu đệm cho một bài', 'Xử lý sắc thái mạnh nhẹ'],
+  },
+  {
+    id: 'nang-cao',
+    dyn: '',
+    dynName: 'fortissimo',
+    n: 'IV',
+    name: 'Nâng cao',
+    who: 'Muốn chơi tác phẩm, không chỉ đệm hát.',
+    body:
+      'Tác phẩm cổ điển vừa sức, đệm nâng cao, và cách tự dựng một bài từ bản nhạc trắng. Cấp này đi chậm hơn ba cấp trước, vì nó phải đi chậm.',
+    out: ['Tác phẩm cổ điển hoàn chỉnh', 'Tự dựng bản đệm riêng', 'Đọc bản nhạc mới không cần hướng dẫn'],
+  },
+];
+
+const sections = [
+  { mark: 'A', id: 'nguoi-day', label: 'Người dạy' },
+  { mark: 'B', id: 'cap-do', label: 'Bốn cấp độ' },
+  { mark: 'C', id: 'hoc-vien', label: 'Học viên' },
+  { mark: 'D', id: 'cach-hoc', label: 'Cách học' },
+];
+---
+
+<Base
+  title="Mây Piano — Khoá piano online dạy bằng tiếng Việt"
+  description="Bốn cấp piano online do Mây trực tiếp dạy, bằng tiếng Việt, từ chưa biết gì đến chơi được tác phẩm. Học trên điện thoại hay máy tính, xem lại bao lâu tuỳ ý."
+>
+  <!-- ============================ TITLE PAGE ============================ -->
+  <header class="title-page" id="noi-dung">
+    <div class="page title-page__inner">
+      <div class="title-block">
+        <h1 class="title-block__work">Mây&nbsp;Piano</h1>
+        <div class="title-block__row">
+          <p class="title-block__tempo">
+            Khoá piano online dạy bằng tiếng Việt. Bốn cấp, từ chưa từng chạm vào đàn
+            đến chơi được tác phẩm mình thích.
+          </p>
+          <p class="title-block__by">
+            <span class="title-block__by-role">Giảng viên</span>
+            <span class="title-block__by-name">Mây</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="title-page__system">
+        <PlayableSystem />
+        <p class="title-page__demo-note">
+          <span class="music" aria-hidden="true">&#xE4C0;</span>
+          Tiếng đàn mẫu do trình duyệt tổng hợp.
+          <b>Bản thu thật của Mây sẽ thay vào đây.</b>
+        </p>
+      </div>
+
+      <div class="title-page__act">
+        <a class="cta" href="#cap-do">
+          Chọn cấp độ của bạn
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <path d="M4 10h11M11 5.5 15.5 10 11 14.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </a>
+        <p class="cta__aside">
+          Học viên ở Việt Nam quét QR chuyển khoản. Ở nước ngoài trả bằng thẻ.
+        </p>
+      </div>
+
+      <aside class="margin-note margin-note--hero" data-note>
+        <span class="margin-note__hand">Chưa biết gì cũng bắt đầu được từ Cấp I. Ai cũng từng ngồi xuống lần đầu.</span>
+        <span class="margin-note__sign">— Mây</span>
+      </aside>
+    </div>
+  </header>
+
+  <!-- ============================ NAV ============================ -->
+  <nav class="marks" aria-label="Các phần của trang">
+    <div class="page marks__inner">
+      {
+        sections.map((s) => (
+          <a class="marks__item" href={`#${s.id}`}>
+            <span class="rehearsal">{s.mark}</span>
+            <span class="marks__label">{s.label}</span>
+          </a>
+        ))
+      }
+    </div>
+  </nav>
+
+  <!-- ============================ A — THE TEACHER ============================ -->
+  <section class="room" id="nguoi-day" aria-labelledby="h-nguoi-day">
+    <div class="page room__inner">
+      <div class="room__head">
+        <a class="rehearsal rehearsal--room" href="#nguoi-day" aria-label="Phần A, người dạy">A</a>
+        <h2 id="h-nguoi-day">Nghe Mây đàn trước khi quyết định</h2>
+      </div>
+
+      <p class="room__lede">
+        Người dạy là thứ khó kiểm chứng nhất khi mua một khoá học online. Nên
+        trang này đặt bằng chứng lên trước lời mời: xem Mây chơi, rồi hãy tính.
+      </p>
+
+      <div class="room__stage">
+        <div class="room__video">
+          <div class="pending">
+            <b>Chỗ này chờ video thật.</b> Một đoạn Mây đàn, và một đoạn Mây dạy:
+            hai video khác nhau, vì người xem cần biết cả hai. Gửi file là em ghép vào.
+          </div>
+        </div>
+        <div class="room__bio">
+          <h3>Mây là ai</h3>
+          <div class="pending">
+            <b>Chờ học vị và kinh nghiệm thật.</b> Học ở đâu, dạy bao nhiêu năm, từng
+            biểu diễn hay giảng dạy ở đâu. Em không viết thay phần này, vì nó phải đúng
+            từng chữ.
+          </div>
+          <p class="room__bio-note">
+            Đây là bằng chứng mạnh nhất mà khoá học đang có, nên nó được đặt ở
+            trang đầu chứ không nằm dưới đáy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ B — LEVELS ============================ -->
+  <section class="levels" id="cap-do" aria-labelledby="h-cap-do">
+    <div class="page">
+      <div class="sec-head">
+        <a class="rehearsal" href="#cap-do" aria-label="Phần B, bốn cấp độ">B</a>
+        <h2 id="h-cap-do">Bốn cấp, và cách biết mình đang ở đâu</h2>
+      </div>
+      <p class="sec-lede narrow">
+        Bốn cấp đi từ nhẹ đến đầy, đúng như cách một bản nhạc ghi cường độ. Đọc
+        dòng <em>“dành cho ai”</em> trước; nó chính xác hơn là tự đoán trình độ của mình.
+      </p>
+
+      <ol class="levels__list">
+        {
+          levels.map((lv) => (
+            <li class="lv" id={lv.id}>
+              <div class="lv__mark" aria-hidden="true">
+                <span class="music lv__dyn">{lv.dyn}</span>
+              </div>
+              <div class="lv__body">
+                <h3 class="lv__name">
+                  <span class="lv__num tnum">Cấp {lv.n}</span>
+                  <span class="lv__title">{lv.name}</span>
+                  <span class="sr-only">, sắc thái {lv.dynName}</span>
+                </h3>
+                <p class="lv__who">{lv.who}</p>
+                <p class="lv__text">{lv.body}</p>
+                <ul class="lv__out">
+                  {lv.out.map((o) => (
+                    <li>{o}</li>
+                  ))}
+                </ul>
+              </div>
+              <div class="lv__buy">
+                <div class="pending pending--price">
+                  <b>Giá chưa chốt</b>
+                </div>
+                <button type="button" class="lv__btn" disabled>
+                  Mua Cấp {lv.n}
+                </button>
+                <p class="lv__btn-note">Nút mở khi có giá và cổng thanh toán.</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================ C — STUDENTS ============================ -->
+  <section class="students" id="hoc-vien" aria-labelledby="h-hoc-vien">
+    <div class="page">
+      <div class="sec-head">
+        <a class="rehearsal" href="#hoc-vien" aria-label="Phần C, học viên">C</a>
+        <h2 id="h-hoc-vien">Học viên đã học nói gì</h2>
+      </div>
+      <p class="sec-lede narrow">
+        Khoá này đã chạy và đã có người học thật. Những gì họ viết sẽ nằm ở đây,
+        nguyên văn.
+      </p>
+
+      <div class="students__slots">
+        <div class="pending">
+          <b>Chờ nhận xét thật từ học viên cũ trên Teachable.</b> Gửi nguyên văn kèm
+          tên họ cho phép hiện. Em không viết mẫu và không dựng tên giả. Một lời khen
+          bịa ra trên trang bán khoá học là thứ hỏng nhanh nhất.
+        </div>
+      </div>
+
+      <aside class="margin-note" data-note>
+        <span class="margin-note__hand">
+          Không có số liệu học viên, tỉ lệ thành công hay đánh giá sao trên trang này,
+          vì chưa ai đo.
+        </span>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============================ D — HOW IT WORKS ============================ -->
+  <section class="how" id="cach-hoc" aria-labelledby="h-cach-hoc">
+    <div class="page">
+      <div class="sec-head">
+        <a class="rehearsal" href="#cach-hoc" aria-label="Phần D, cách học">D</a>
+        <h2 id="h-cach-hoc">Mua xong thì học thế nào</h2>
+      </div>
+
+      <div class="how__grid">
+        <div class="how__item">
+          <h3>Trả tiền theo cách tiện cho bạn</h3>
+          <p>
+            Ở Việt Nam: quét mã QR chuyển khoản vào tài khoản trong nước, khoá học mở
+            ngay sau khi tiền vào. Ở Mỹ, Canada, Úc hay Châu Âu: trả bằng thẻ
+            VISA hoặc Mastercard.
+          </p>
+        </div>
+        <div class="how__item">
+          <h3>Tài khoản riêng, tiến độ được ghi lại</h3>
+          <p>
+            Đăng nhập là thấy mình đang dở ở bài nào. Học đến đâu ghi đến đó, nên
+            nghỉ vài tuần quay lại vẫn biết chỗ mình dừng.
+          </p>
+        </div>
+        <div class="how__item">
+          <h3>Học cạnh cây đàn</h3>
+          <p>
+            Trang chạy trên điện thoại hay máy tính bảng dựng trên giá nhạc, đúng
+            tư thế người ta thật sự tập đàn. Không cần cài gì thêm.
+          </p>
+        </div>
+        <div class="how__item">
+          <h3>Xem lại bao lâu tuỳ ý</h3>
+          <p>
+            Bài giảng không hết hạn theo buổi. Một câu nhạc khó thì tua lại mười lần
+            cũng được, không ai đợi.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ CODA ============================ -->
+  <section class="coda" aria-labelledby="h-coda">
+    <div class="page coda__inner">
+      <h2 id="h-coda" class="coda__h">Bắt đầu từ Cấp I</h2>
+      <p class="coda__p">
+        Không cần biết nhạc lý. Không cần đàn xịn. Chỉ cần ngồi xuống được
+        mười lăm phút mỗi ngày.
+      </p>
+      <a class="cta cta--coda" href="#cap-do">
+        Chọn cấp độ của bạn
+        <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <path d="M4 10h11M11 5.5 15.5 10 11 14.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="page foot__inner">
+      <p class="foot__name">Mây Piano</p>
+      <p class="foot__meta">
+        Khoá piano online dạy bằng tiếng Việt. Trang đang dựng, nội dung thật
+        đang được bổ sung.
+      </p>
+    </div>
+  </footer>
+</Base>
+
+<script>
+  // The one authored motion moment: the teacher's pencil notes write themselves
+  // into the margin as you reach them. Everything else on the page is still.
+  const notes = document.querySelectorAll('[data-note]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  if (reduce.matches || !('IntersectionObserver' in window)) {
+    notes.forEach((n) => n.classList.add('is-written'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          e.target.classList.add('is-written');
+          io.unobserve(e.target);
+        });
+      },
+      { threshold: 0.55 }
+    );
+    notes.forEach((n) => io.observe(n));
+  }
+</script>
+
+<style>
+  /* ---------------------------------------------------------------
+     Title page
+     --------------------------------------------------------------- */
+  .title-page {
+    padding-block: clamp(2.25rem, 5vw, 3.75rem) clamp(2.5rem, 6vw, 4rem);
+    background: var(--paper);
+  }
+
+  .title-page__inner {
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  /* Grid children default to min-width:auto, so the engraved system's own
+     minimum width would push the whole page wider than the viewport. */
+  .title-page__inner > * {
+    min-width: 0;
+  }
+
+  .title-block {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  /* A score sets the tempo indication left and the composer right, on one
+     line under the title. */
+  .title-block__row {
+    display: grid;
+    gap: var(--s-3);
+    align-items: end;
+  }
+  @media (min-width: 880px) {
+    .title-block__row {
+      grid-template-columns: 1fr auto;
+      gap: var(--s-5);
+    }
+    .title-block__by {
+      justify-self: end;
+      text-align: right;
+    }
+  }
+
+  .title-block__work {
+    font-size: var(--t-h1);
+    letter-spacing: -0.04em;
+    line-height: 0.92;
+    margin: 0;
+  }
+
+  .title-block__tempo {
+    font-family: var(--face-display);
+    font-size: clamp(1.0625rem, 2.1vw, 1.4rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--ink-2);
+    max-width: 34ch;
+  }
+
+  /* The composer's line on a score sits right, small, above the first system. */
+  .title-block__by {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-size: var(--t-small);
+    color: var(--ink-3);
+  }
+  .title-block__by-role {
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: var(--t-micro);
+  }
+  .title-block__by-name {
+    font-family: var(--face-display);
+    font-size: var(--t-lead);
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .title-page__demo-note {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-top: var(--s-2);
+    font-size: var(--t-small);
+    color: var(--ink-3);
+  }
+  .title-page__demo-note b {
+    color: var(--edit);
+    font-weight: 500;
+  }
+  .title-page__demo-note .music {
+    font-size: 1.1em;
+    color: var(--ink-3);
+  }
+
+  .title-page__act {
+    display: grid;
+    gap: var(--s-2);
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    justify-self: start;
+    padding: 0.85rem 1.5rem;
+    background: var(--edit);
+    color: var(--paper);
+    font-family: var(--face-text);
+    font-size: var(--t-body);
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background 180ms var(--ease),
+      transform 180ms var(--ease),
+      box-shadow 180ms var(--ease);
+    box-shadow: var(--lift-1);
+  }
+  .cta:hover {
+    background: #8d221a;
+    transform: translateY(-1px);
+    box-shadow: var(--lift-2);
+  }
+  .cta:active {
+    transform: translateY(0);
+  }
+  .cta svg {
+    transition: transform 180ms var(--ease);
+  }
+  .cta:hover svg {
+    transform: translateX(3px);
+  }
+
+  .cta__aside {
+    font-size: var(--t-small);
+    color: var(--ink-3);
+  }
+
+  /* ---------------------------------------------------------------
+     Margin notes — the teacher's red pencil
+     --------------------------------------------------------------- */
+  .margin-note {
+    display: grid;
+    gap: 0.35rem;
+    justify-items: start;
+    padding-left: var(--s-3);
+    border-left: 1px solid var(--edit);
+    max-width: 46ch;
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 700ms var(--ease),
+      transform 700ms var(--ease);
+  }
+  .margin-note.is-written {
+    opacity: 1;
+    transform: none;
+  }
+
+  .margin-note--hero {
+    margin-top: var(--s-2);
+  }
+
+  .margin-note__hand {
+    font-family: var(--face-display);
+    font-style: italic;
+    font-size: var(--t-body);
+    line-height: 1.5;
+    color: var(--edit);
+  }
+  .margin-note__sign {
+    font-size: var(--t-small);
+    color: var(--edit-soft);
+  }
+
+  /* ---------------------------------------------------------------
+     Rehearsal-mark navigation
+     --------------------------------------------------------------- */
+  .marks {
+    border-block: 1.5px solid var(--ink);
+    background: var(--paper-2);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .marks__inner {
+    display: flex;
+    gap: clamp(1rem, 3.5vw, 2.5rem);
+    overflow-x: auto;
+    padding-block: 0.7rem;
+    scrollbar-width: none;
+  }
+  .marks__inner::-webkit-scrollbar {
+    display: none;
+  }
+  .marks__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    text-decoration: none;
+    white-space: nowrap;
+    color: var(--ink-2);
+    font-size: var(--t-small);
+    transition: color 150ms var(--ease);
+  }
+  .marks__item:hover {
+    color: var(--edit);
+  }
+  .marks__item:hover .rehearsal {
+    border-color: var(--edit);
+    color: var(--edit);
+  }
+  .marks__item .rehearsal {
+    background: transparent;
+    transition:
+      color 150ms var(--ease),
+      border-color 150ms var(--ease);
+  }
+
+  /* ---------------------------------------------------------------
+     A — the evening room, the page's one dark passage
+     --------------------------------------------------------------- */
+  .room {
+    background: var(--room);
+    color: var(--room-ink);
+    padding-block: clamp(3rem, 8vw, 6rem);
+  }
+  .room__inner {
+    display: grid;
+    gap: var(--s-4);
+  }
+  .room__head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-3);
+    flex-wrap: wrap;
+  }
+  .room__head h2 {
+    color: var(--room-ink);
+    max-width: 20ch;
+  }
+  .rehearsal--room {
+    border-color: var(--room-ink-2);
+    color: var(--room-ink);
+    background: transparent;
+    text-decoration: none;
+  }
+  .room__lede {
+    font-size: var(--t-lead);
+    color: var(--room-ink-2);
+    max-width: 54ch;
+    line-height: 1.55;
+  }
+  .room__stage {
+    display: grid;
+    gap: var(--s-4);
+  }
+  @media (min-width: 900px) {
+    .room__stage {
+      grid-template-columns: 1.35fr 1fr;
+      gap: var(--s-5);
+      align-items: start;
+    }
+  }
+  .room__video .pending {
+    background: rgba(200, 86, 76, 0.14);
+    color: #f0b3ad;
+    min-height: 220px;
+    display: grid;
+    align-content: center;
+  }
+  .room__video .pending::before,
+  .room__video .pending::after {
+    border-color: #f0b3ad;
+  }
+  .room__bio {
+    display: grid;
+    gap: var(--s-3);
+  }
+  .room__bio h3 {
+    color: var(--room-ink);
+  }
+  .room__bio .pending {
+    background: rgba(200, 86, 76, 0.14);
+    color: #f0b3ad;
+  }
+  .room__bio .pending::before,
+  .room__bio .pending::after {
+    border-color: #f0b3ad;
+  }
+  .room__bio-note {
+    font-size: var(--t-small);
+    color: var(--room-ink-2);
+  }
+
+  /* ---------------------------------------------------------------
+     Shared section heads
+     --------------------------------------------------------------- */
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-3);
+    flex-wrap: wrap;
+    margin-bottom: var(--s-3);
+  }
+  .sec-head h2 {
+    max-width: 22ch;
+  }
+  .sec-head .rehearsal {
+    text-decoration: none;
+  }
+  .sec-lede {
+    font-size: var(--t-lead);
+    color: var(--ink-2);
+    line-height: 1.55;
+    margin-bottom: var(--s-4);
+  }
+
+  /* ---------------------------------------------------------------
+     B — levels, engraved as movements on a system, not as cards
+     --------------------------------------------------------------- */
+  .levels {
+    padding-block: clamp(3rem, 8vw, 6rem);
+  }
+  .levels__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+    border-top: 1.5px solid var(--ink);
+  }
+
+  .lv {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--s-3) var(--s-4);
+    padding-block: var(--s-4);
+    border-bottom: 1px solid var(--paper-edge);
+    scroll-margin-top: 5rem;
+  }
+  @media (min-width: 940px) {
+    .lv {
+      grid-template-columns: 5.5rem 1fr 16rem;
+      gap: var(--s-5);
+      align-items: start;
+    }
+  }
+
+  .lv__mark {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .lv__dyn {
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    color: var(--press);
+    line-height: 0.8;
+  }
+
+  .lv__body {
+    display: grid;
+    gap: var(--s-2);
+    grid-column: 2 / -1;
+  }
+  @media (min-width: 940px) {
+    .lv__body {
+      grid-column: auto;
+    }
+  }
+
+  .lv__name {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin: 0;
+  }
+  .lv__num {
+    font-family: var(--face-text);
+    font-size: var(--t-micro);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+  }
+  .lv__title {
+    font-size: var(--t-h3);
+    font-family: var(--face-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .lv__who {
+    font-family: var(--face-display);
+    font-style: italic;
+    color: var(--edit);
+    font-size: var(--t-body);
+  }
+  .lv__text {
+    color: var(--ink-2);
+  }
+  .lv__out {
+    margin: var(--s-1) 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.5rem;
+  }
+  .lv__out li {
+    font-size: var(--t-small);
+    color: var(--press);
+    background: rgba(36, 70, 60, 0.09);
+    padding: 0.25rem 0.6rem;
+  }
+
+  .lv__buy {
+    grid-column: 2 / -1;
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+    justify-items: start;
+  }
+  @media (min-width: 940px) {
+    .lv__buy {
+      grid-column: auto;
+      justify-items: stretch;
+    }
+  }
+  .pending--price {
+    padding: 0.6rem 0.75rem 0.6rem 1.1rem;
+    font-size: var(--t-small);
+  }
+  .lv__btn {
+    padding: 0.75rem 1.25rem;
+    border: 1.5px solid var(--ink-3);
+    background: transparent;
+    color: var(--ink-3);
+    font-family: var(--face-text);
+    font-size: var(--t-body);
+    font-weight: 600;
+    cursor: not-allowed;
+    width: 100%;
+  }
+  .lv__btn-note {
+    font-size: var(--t-micro);
+    color: var(--ink-3);
+  }
+
+  /* ---------------------------------------------------------------
+     C — students
+     --------------------------------------------------------------- */
+  .students {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
+    background: var(--paper-2);
+    border-block: 1px solid var(--paper-edge);
+  }
+  .students__slots {
+    display: grid;
+    gap: var(--s-3);
+    max-width: 62ch;
+    margin-bottom: var(--s-4);
+  }
+
+  /* ---------------------------------------------------------------
+     D — how it works
+     --------------------------------------------------------------- */
+  .how {
+    padding-block: clamp(3rem, 8vw, 6rem);
+  }
+  .how__grid {
+    display: grid;
+    gap: var(--s-4) var(--s-5);
+  }
+  @media (min-width: 760px) {
+    .how__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .how__item {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+    padding-top: var(--s-3);
+    border-top: 1px solid var(--paper-edge);
+  }
+  .how__item h3 {
+    max-width: 24ch;
+  }
+  .how__item p {
+    color: var(--ink-2);
+  }
+
+  /* ---------------------------------------------------------------
+     Coda
+     --------------------------------------------------------------- */
+  .coda {
+    background: var(--press);
+    color: var(--press-ink);
+    padding-block: clamp(3.5rem, 9vw, 6.5rem);
+  }
+  .coda__inner {
+    display: grid;
+    gap: var(--s-3);
+    justify-items: start;
+  }
+  .coda__h {
+    color: var(--press-ink);
+    font-size: var(--t-h2);
+  }
+  .coda__p {
+    color: rgba(223, 231, 225, 0.78);
+    font-size: var(--t-lead);
+    max-width: 40ch;
+  }
+  .cta--coda {
+    background: var(--paper);
+    color: var(--press-2);
+    margin-top: var(--s-2);
+  }
+  .cta--coda:hover {
+    background: #fff;
+  }
+
+  /* ---------------------------------------------------------------
+     Foot
+     --------------------------------------------------------------- */
+  .foot {
+    padding-block: var(--s-4);
+    background: var(--paper);
+  }
+  .foot__inner {
+    display: grid;
+    gap: var(--s-1);
+  }
+  .foot__name {
+    font-family: var(--face-display);
+    font-weight: 800;
+    font-size: var(--t-lead);
+    letter-spacing: -0.02em;
+  }
+  .foot__meta {
+    font-size: var(--t-small);
+    color: var(--ink-3);
+  }
+</style>

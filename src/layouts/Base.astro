@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#edefea" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:type" content="website" />
+
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/bravura-subset.woff2" crossorigin />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/piazzolla-800-vietnamese.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/bevietnampro-400-vietnamese.woff2"
+      crossorigin
+    />
+  </head>
+  <body>
+    <!--
+    THESIS: The page is set ON the stave, not decorated with music. It refuses the
+    course-landing arrangement: instructor hero, benefit columns, testimonial cards,
+    pricing table, FAQ.
+    OWN-WORLD: Engraved score. Cool stock #EDEFEA, printing ink #12151A, editor's red
+    #A32B22 as the only colour that asks for action, press green #24463C in whole
+    fields. Piazzolla display, Be Vietnam Pro text (both full Vietnamese), real Bravura
+    SMuFL glyphs. Five-line staves are the layout grid; rehearsal marks navigate.
+    STORY: A Vietnamese learner arrives cold, hears Mây play within seconds, locates
+    themselves among four levels, and buys one.
+    FIRST VIEWPORT: Score title block — "Mây Piano" at work-title position, one line
+    saying what it is, teacher at composer position. Under it a playable first system.
+    The action opens system two in editor's red. Mây's margin note writes itself in.
+    FORM: Bản Khắc, candidate 1 of 7, seed 1eea4b62.
+    FINISH: unreviewed and undocumented is unfinished; this build ends with the finish
+    review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.
+    -->
+    <a class="skip" href="#noi-dung">Tới nội dung chính</a>
+    <slot />
+    <style>
+      .skip {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        z-index: 99;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 0.7rem 1.1rem;
+        font-size: var(--t-small);
+        text-decoration: none;
+      }
+      .skip:focus {
+        left: 0.5rem;
+        top: 0.5rem;
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+/* Bản Khắc — tokens
+   The page is set as an engraved score. Ink and paper are the ground; the
+   editor's red is the teacher's pencil and the only colour that ever asks the
+   reader to act. Press green holds whole regions, never hairlines. */
+
+:root {
+  /* ---- ink & paper ---- */
+  --paper: #edefea;          /* score stock, cool — deliberately not cream */
+  --paper-2: #e4e7e0;        /* gathered / recto-verso shade */
+  --paper-edge: #d5d9d0;
+  --ink: #12151a;            /* printing ink */
+  --ink-2: #3a4048;          /* engraved secondary */
+  --ink-3: #6d7580;          /* staff-line grey, captions */
+
+  /* ---- the teacher's pencil ---- */
+  --edit: #a32b22;
+  --edit-soft: #c8564c;
+  --edit-wash: rgba(163, 43, 34, 0.09);
+
+  /* ---- press green: fields, not hairlines ---- */
+  --press: #24463c;
+  --press-2: #1a332c;
+  --press-ink: #dfe7e1;
+
+  /* ---- the evening room (the page's one dark passage) ---- */
+  --room: #0c0e11;
+  --room-2: #14181d;
+  --room-ink: #e8eae5;
+  --room-ink-2: #9aa3a9;
+
+  /* ---- stave geometry ----
+     SMuFL sets 1em = 4 staff spaces, so glyph size is always 4x this. */
+  --staff-space: 9px;
+  --staff-font: calc(var(--staff-space) * 4);
+
+  /* ---- type ---- */
+  --face-display: 'Piazzolla', 'Iowan Old Style', Georgia, serif;
+  --face-text: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --face-music: 'Bravura', serif;
+
+  /* Type scale — 1.25 at the small end, opening to 1.32 for display sizes. */
+  --t-micro: 0.75rem;
+  --t-small: 0.875rem;
+  --t-body: 1.0625rem;
+  --t-lead: 1.25rem;
+  --t-h3: clamp(1.25rem, 1.9vw, 1.5rem);
+  --t-h2: clamp(1.75rem, 3.4vw, 2.75rem);
+  --t-h1: clamp(2.75rem, 8.5vw, 6rem);
+
+  /* ---- rhythm ---- */
+  --s-1: 0.375rem;
+  --s-2: 0.75rem;
+  --s-3: 1.25rem;
+  --s-4: 2rem;
+  --s-5: 3.25rem;
+  --s-6: 5rem;
+  --s-7: 8rem;
+
+  --measure: 66ch;
+  --page: 1160px;
+  --page-narrow: 780px;
+
+  /* Engraved depth: offset plus soft blur, never a zero-offset halo. */
+  --lift-1: 0 1px 2px rgba(18, 21, 26, 0.07), 0 6px 16px -10px rgba(18, 21, 26, 0.22);
+  --lift-2: 0 2px 4px rgba(18, 21, 26, 0.08), 0 18px 40px -22px rgba(18, 21, 26, 0.4);
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
