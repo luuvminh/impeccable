@@ -1,4 +1,7 @@
 ---
+// The sales surface has no per-request state, so it stays static.
+export const prerender = true;
+
 import Base from '../layouts/Base.astro';
 import PlayableSystem from '../components/PlayableSystem.astro';
 

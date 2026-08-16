@@ -1,0 +1,147 @@
+---
+/*
+  The course area shell.
+
+  Operate mode: the world is inherited from the sales surface, but expression
+  gives way to the task. Familiar top bar, fixed type scale, no page-load
+  choreography.
+*/
+import '../styles/global.css';
+import type { Learner } from '../lib/session';
+
+interface Props {
+  title: string;
+  learner: Learner | null;
+  /** Shown when this instance is running on the sample course. */
+  sample?: boolean;
+}
+const { title, learner, sample = false } = Astro.props;
+---
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · Mây Piano</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#edefea" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/bravura-subset.woff2" crossorigin />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/bevietnampro-400-vietnamese.woff2"
+      crossorigin
+    />
+  </head>
+  <body>
+    <a class="skip" href="#khu-hoc">Tới nội dung chính</a>
+
+    <header class="bar">
+      <div class="page bar__inner">
+        <a class="bar__mark" href="/hoc">Mây&nbsp;Piano</a>
+        {
+          learner && (
+            <div class="bar__who">
+              <span class="bar__name">{learner.name}</span>
+              <form method="POST" action="/dang-xuat">
+                <button type="submit" class="bar__out">Thoát</button>
+              </form>
+            </div>
+          )
+        }
+      </div>
+    </header>
+
+    {
+      sample && (
+        <div class="notice">
+          <div class="page">
+            <p class="pending">
+              <b>Đây là khoá học mẫu.</b> Chưa nối Supabase và Bunny, nên bài học, tiến
+              độ và video trên màn hình này là dữ liệu dựng để xem giao diện. Cắm khoá
+              thật vào là màn hình đọc dữ liệu thật, không phải sửa lại giao diện.
+            </p>
+          </div>
+        </div>
+      )
+    }
+
+    <main id="khu-hoc">
+      <slot />
+    </main>
+
+    <style>
+      .skip {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        z-index: 99;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 0.7rem 1.1rem;
+        font-size: var(--t-small);
+        text-decoration: none;
+      }
+      .skip:focus {
+        left: 0.5rem;
+        top: 0.5rem;
+      }
+
+      .bar {
+        border-bottom: 1px solid var(--paper-edge);
+        background: var(--paper-2);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      .bar__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--s-3);
+        min-height: 56px;
+      }
+      .bar__mark {
+        font-family: var(--face-display);
+        font-weight: 800;
+        font-size: var(--t-lead);
+        letter-spacing: -0.02em;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .bar__who {
+        display: flex;
+        align-items: center;
+        gap: var(--s-3);
+      }
+      .bar__name {
+        font-size: var(--t-small);
+        color: var(--ink-3);
+      }
+      .bar__out {
+        min-height: 44px;
+        padding-inline: 0.75rem;
+        border: 1px solid var(--paper-edge);
+        background: transparent;
+        color: var(--ink-2);
+        font-family: var(--face-text);
+        font-size: var(--t-small);
+        cursor: pointer;
+        transition:
+          border-color 150ms var(--ease),
+          color 150ms var(--ease);
+      }
+      .bar__out:hover {
+        border-color: var(--ink-2);
+        color: var(--ink);
+      }
+
+      .notice {
+        padding-block: var(--s-3);
+      }
+    </style>
+  </body>
+</html>

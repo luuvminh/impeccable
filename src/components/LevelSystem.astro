@@ -1,0 +1,184 @@
+---
+/*
+  One level, engraved as a system: the lessons are the noteheads.
+
+  This is the whole point of the Tổng phổ structure — a learner sees the shape
+  of the level and reaches any lesson in one tap, with no index screen in
+  between. Every notehead is a real link carrying its own accessible name.
+*/
+
+import type { Level, Progress } from '../lib/course';
+import { lessonState } from '../lib/course';
+
+interface Props {
+  level: Level;
+  progress: Progress;
+}
+const { level, progress } = Astro.props;
+
+const SS = 10;
+const LINE = 1.3;
+const STEM = 1.2;
+const STEM_LEN = 3.2 * SS;
+
+// A rising contour so the system reads as a phrase rather than a row of dots.
+const CONTOUR = [40, 30, 35, 25, 30, 20, 25, 15, 20, 10];
+
+// The clef occupies roughly x 2–32 and hangs below the stave, so the opening
+// dynamic starts clear of its tail rather than under it.
+const CLEF_END = 34;
+const X0 = CLEF_END + 34;
+const GAP = 40;
+
+const notes = level.lessons.map((lesson, i) => {
+  const y = CONTOUR[i % CONTOUR.length];
+  return {
+    lesson,
+    i,
+    x: X0 + i * GAP,
+    y,
+    up: y > 20,
+    state: lessonState(lesson, level, progress),
+  };
+});
+
+const endX = X0 + (level.lessons.length - 1) * GAP + 30;
+const stateLabel = {
+  done: 'đã học',
+  current: 'đang học',
+  open: 'chưa học',
+  locked: 'chưa mở',
+};
+---
+
+<div class="sys">
+  <svg
+    class="sys__svg"
+    viewBox={`0 -34 ${endX + 14} 96`}
+    role="group"
+    aria-label={`Cấp ${level.n}, ${level.name}`}
+  >
+    {
+      [0, 1, 2, 3, 4].map((n) => (
+        <rect class="sys__line" x="0" y={n * SS - LINE / 2} width={endX + 8} height={LINE} />
+      ))
+    }
+    <text class="sys__clef" x="2" y={3 * SS} font-size={4 * SS}>&#xE050;</text>
+    <text class="sys__dyn" x={CLEF_END} y="62" font-size="30">{level.dyn}</text>
+
+    {
+      notes.map((n) => (
+        <a
+          href={n.state === 'locked' ? `/#${level.id}` : `/hoc/${n.lesson.slug}`}
+          class={`note note--${n.state}`}
+          aria-label={`Bài ${n.lesson.n}: ${n.lesson.title}, ${n.lesson.minutes} phút, ${stateLabel[n.state]}`}
+        >
+          <rect class="note__hit" x={n.x - 13} y="-34" width="34" height="96" />
+          <rect
+            class="note__stem"
+            x={n.up ? n.x + 10.6 : n.x}
+            y={n.up ? n.y - STEM_LEN : n.y}
+            width={STEM}
+            height={STEM_LEN}
+          />
+          <text class="note__head" x={n.x} y={n.y} font-size={4 * SS}>
+            {n.state === 'done' || n.state === 'current' ? '' : ''}
+          </text>
+          {/* font-size here is SVG user units, not a UI type step: it scales
+              with the viewBox like the staff space does. */}
+          <text class="note__num" x={n.x + 5.5} y="60" text-anchor="middle" font-size="11">
+            {n.lesson.n}
+          </text>
+        </a>
+      ))
+    }
+    <rect class="sys__line" x={endX + 2} y="0" width="1.6" height={4 * SS} />
+    <rect class="sys__line" x={endX + 8} y="0" width="5" height={4 * SS} />
+  </svg>
+</div>
+
+<style>
+  .sys {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    min-width: 0;
+  }
+  .sys::-webkit-scrollbar {
+    display: none;
+  }
+  .sys__svg {
+    width: 100%;
+    min-width: 320px;
+    max-width: 620px;
+    height: auto;
+  }
+
+  .sys__line {
+    fill: var(--stave-line);
+  }
+  .sys__clef {
+    font-family: var(--face-music);
+    fill: var(--stave-line);
+  }
+  .sys__dyn {
+    font-family: var(--face-music);
+    fill: var(--press);
+  }
+
+  .note {
+    cursor: pointer;
+  }
+  .note__hit {
+    fill: transparent;
+  }
+  .note__head {
+    font-family: var(--face-music);
+  }
+  .note__num {
+    font-family: var(--face-text);
+    fill: var(--ink-3);
+  }
+
+  .note--done .note__head,
+  .note--done .note__stem {
+    fill: var(--ink);
+  }
+  .note--open .note__head,
+  .note--open .note__stem {
+    fill: var(--ink-2);
+  }
+  .note--current .note__head,
+  .note--current .note__stem {
+    fill: var(--edit);
+  }
+  .note--locked {
+    cursor: default;
+  }
+  .note--locked .note__head,
+  .note--locked .note__stem {
+    fill: var(--stave-line);
+  }
+  .note--locked .note__num {
+    fill: var(--stave-line);
+  }
+
+  .note:hover .note__head,
+  .note:hover .note__stem {
+    fill: var(--edit);
+  }
+  .note:hover .note__num {
+    fill: var(--edit);
+  }
+  .note:focus-visible {
+    outline: none;
+  }
+  .note:focus-visible .note__hit {
+    stroke: var(--edit);
+    stroke-width: 1.5;
+  }
+  .note:focus-visible .note__head,
+  .note:focus-visible .note__stem {
+    fill: var(--edit);
+  }
+</style>
