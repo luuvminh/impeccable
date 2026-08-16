@@ -411,7 +411,7 @@ const sections = [
 
   .title-block__tempo {
     font-family: var(--face-display);
-    font-size: clamp(1.0625rem, 2.1vw, 1.4rem);
+    font-size: var(--t-h3);
     font-style: italic;
     font-weight: 400;
     line-height: 1.45;
@@ -928,7 +928,7 @@ const sections = [
     flex-wrap: wrap;
   }
   .coda__sign {
-    font-size: 1.6rem;
+    font-size: var(--t-h3);
     color: rgba(223, 231, 225, 0.55);
   }
   .coda__h {
@@ -951,8 +951,11 @@ const sections = [
     color: var(--press-2);
     margin-top: var(--s-2);
   }
+  /* Overrides the red hover it would otherwise inherit: on the press-green
+     field this control is already inverted, so the lift and shadow carry the
+     feedback instead of a colour change. */
   .cta--coda:hover {
-    background: #fff;
+    background: var(--paper);
   }
 
   /* ---------------------------------------------------------------
