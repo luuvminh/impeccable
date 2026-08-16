@@ -1,0 +1,181 @@
+---
+/*
+  Sign-in. Email link when Supabase is wired; a marked development stand-in
+  until then. The stand-in is never described as authentication.
+*/
+import App from '../layouts/App.astro';
+import { isSample, supabase } from '../lib/config';
+import { startSampleSession, currentLearner } from '../lib/session';
+
+const already = await currentLearner(Astro.cookies);
+const next = Astro.url.searchParams.get('tiep') || '/hoc';
+if (already) return Astro.redirect(next);
+
+let error: string | null = null;
+let sent = false;
+
+if (Astro.request.method === 'POST') {
+  const form = await Astro.request.formData();
+  const email = String(form.get('email') || '').trim();
+
+  if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+    error = 'Địa chỉ email chưa đúng. Kiểm tra lại giúp em.';
+  } else if (isSample) {
+    startSampleSession(Astro.cookies, email);
+    return Astro.redirect(next);
+  } else {
+    const res = await fetch(`${supabase.url}/auth/v1/otp`, {
+      method: 'POST',
+      headers: { apikey: supabase.anonKey!, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, create_user: false }),
+    });
+    if (res.ok) sent = true;
+    else error = 'Chưa gửi được link đăng nhập. Thử lại sau ít phút.';
+  }
+}
+---
+
+<App title="Đăng nhập" learner={null} sample={false}>
+  <div class="page wrap">
+    <h1 class="h">Vào khu học</h1>
+
+    {
+      sent ? (
+        <div class="sent" role="status">
+          <p class="sent__h">Đã gửi link đăng nhập.</p>
+          <p class="sent__p">
+            Mở hộp thư và bấm vào link trong email. Link chỉ dùng được một lần.
+            Không thấy thì xem thư mục spam.
+          </p>
+        </div>
+      ) : (
+        <form method="POST" class="form" novalidate>
+          <label class="field">
+            <span class="field__label">Email bạn đã dùng khi mua khoá</span>
+            <input
+              class="field__input"
+              type="email"
+              name="email"
+              autocomplete="email"
+              inputmode="email"
+              required
+              aria-invalid={error ? 'true' : undefined}
+              aria-describedby={error ? 'loi-email' : 'giai-thich'}
+            />
+          </label>
+
+          {error && (
+            <p class="field__err" id="loi-email" role="alert">
+              {error}
+            </p>
+          )}
+
+          <p class="hint" id="giai-thich">
+            {isSample
+              ? 'Chưa nối Supabase, nên bất kỳ email nào cũng vào được để xem giao diện. Đây là phiên thử, không phải đăng nhập thật.'
+              : 'Không cần mật khẩu. Em gửi một link vào hộp thư, bấm vào là vào học.'}
+          </p>
+
+          <button type="submit" class="submit">
+            {isSample ? 'Vào xem thử' : 'Gửi link đăng nhập'}
+          </button>
+        </form>
+      )
+    }
+
+    <p class="back"><a href="/">Về trang giới thiệu khoá học</a></p>
+  </div>
+</App>
+
+<style>
+  .wrap {
+    padding-block: var(--s-5) var(--s-6);
+    display: grid;
+    gap: var(--s-4);
+    justify-items: start;
+    max-width: 34rem;
+  }
+  .h {
+    font-size: var(--t-h2);
+  }
+
+  .form {
+    display: grid;
+    gap: var(--s-3);
+    width: 100%;
+  }
+  .field {
+    display: grid;
+    gap: var(--s-1);
+  }
+  .field__label {
+    font-size: var(--t-small);
+    color: var(--ink-2);
+  }
+  .field__input {
+    min-height: 48px;
+    padding: 0.6rem 0.8rem;
+    border: 1.5px solid var(--ink-2);
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--face-text);
+    font-size: var(--t-body);
+  }
+  .field__input:focus-visible {
+    outline: 2px solid var(--edit);
+    outline-offset: 2px;
+    border-color: var(--edit);
+  }
+  .field__input[aria-invalid='true'] {
+    border-color: var(--edit);
+  }
+  .field__err {
+    font-size: var(--t-small);
+    color: var(--edit);
+  }
+  .hint {
+    font-size: var(--t-small);
+    color: var(--ink-3);
+  }
+
+  .submit {
+    justify-self: start;
+    min-height: 48px;
+    padding-inline: 1.4rem;
+    border: none;
+    background: var(--edit);
+    color: var(--paper);
+    font-family: var(--face-text);
+    font-size: var(--t-body);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--lift-1);
+    transition:
+      transform 160ms var(--ease),
+      box-shadow 160ms var(--ease);
+  }
+  .submit:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--lift-2);
+  }
+
+  .sent {
+    display: grid;
+    gap: var(--s-2);
+    border-left: 2px solid var(--press);
+    padding-left: var(--s-3);
+  }
+  .sent__h {
+    font-family: var(--face-display);
+    font-size: var(--t-h3);
+    font-weight: 600;
+  }
+  .sent__p {
+    color: var(--ink-2);
+  }
+
+  .back {
+    font-size: var(--t-small);
+    color: var(--ink-3);
+  }
+</style>

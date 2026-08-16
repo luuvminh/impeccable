@@ -1,0 +1,307 @@
+---
+/*
+  Tổng phổ — the conductor's score.
+
+  All four levels stacked as systems, the learner's position marked across the
+  whole work. The structural risk I named when this was chosen was that an
+  overview can cost an extra tap to reach a lesson; the answer is that the
+  noteheads ARE the lessons, so every lesson on the page is one tap away, and
+  the list under each system carries the titles an overview cannot.
+*/
+import App from '../../layouts/App.astro';
+import LevelSystem from '../../components/LevelSystem.astro';
+import { currentLearner } from '../../lib/session';
+import { isSample } from '../../lib/config';
+import { LEVELS, getProgress, lessonState, levelStats, resumePoint } from '../../lib/course';
+
+const learner = await currentLearner(Astro.cookies);
+if (!learner) return Astro.redirect('/dang-nhap?tiep=/hoc');
+
+let progress;
+let loadError: string | null = null;
+try {
+  progress = await getProgress(learner.sample ? null : learner.id);
+} catch (e) {
+  loadError = e instanceof Error ? e.message : 'Không đọc được tiến độ.';
+  progress = { done: new Set<string>(), owned: new Set<string>() };
+}
+
+const resume = resumePoint(progress);
+const totalDone = LEVELS.flatMap((l) => l.lessons).filter((l) => progress.done.has(l.slug)).length;
+const totalOwned = LEVELS.filter((l) => progress.owned.has(l.id)).flatMap((l) => l.lessons).length;
+
+const stateLabel = { done: 'Đã học', current: 'Đang học', open: 'Chưa học', locked: 'Chưa mở' };
+---
+
+<App title="Tổng phổ" learner={learner} sample={isSample}>
+  <div class="page top">
+    <h1 class="top__h">Chào {learner.name}</h1>
+
+    {
+      loadError && (
+        <p class="err" role="alert">
+          {loadError} Thử tải lại trang; nếu vẫn lỗi thì nhắn cho Mây.
+        </p>
+      )
+    }
+
+    {
+      resume ? (
+        <a class="resume" href={`/hoc/${resume.lesson.slug}`}>
+          <span class="resume__label">Học tiếp</span>
+          <span class="resume__title">
+            Cấp {resume.level.n} · Bài {resume.lesson.n} — {resume.lesson.title}
+          </span>
+          <span class="resume__meta">{resume.lesson.minutes} phút</span>
+        </a>
+      ) : (
+        <div class="empty">
+          <p class="empty__h">Chưa có cấp nào mở.</p>
+          <p class="empty__p">
+            Chọn một cấp để bắt đầu. Cấp I không cần biết gì trước.
+          </p>
+          <a class="empty__cta" href="/#cap-do">Xem bốn cấp</a>
+        </div>
+      )
+    }
+
+    {
+      totalOwned > 0 && (
+        <p class="tally tnum">
+          Đã học {totalDone}/{totalOwned} bài trong các cấp bạn đang có.
+        </p>
+      )
+    }
+  </div>
+
+  <div class="page score">
+    {
+      LEVELS.map((level) => {
+        const s = levelStats(level, progress);
+        return (
+          <section class={`lvl ${s.owned ? '' : 'lvl--locked'}`} aria-labelledby={`h-${level.id}`}>
+            <div class="lvl__head">
+              <h2 class="lvl__h" id={`h-${level.id}`}>
+                <span class="lvl__n">Cấp {level.n}</span>
+                <span class="lvl__name">{level.name}</span>
+              </h2>
+              <p class="lvl__count tnum">
+                {s.owned ? `${s.done}/${s.total} bài` : 'Chưa mở'}
+              </p>
+            </div>
+
+            <LevelSystem level={level} progress={progress} />
+
+            {s.owned ? (
+              <ol class="lessons">
+                {level.lessons.map((lesson) => {
+                  const st = lessonState(lesson, level, progress);
+                  return (
+                    <li class={`ls ls--${st}`}>
+                      <a class="ls__link" href={`/hoc/${lesson.slug}`}>
+                        <span class="ls__n tnum">{lesson.n}</span>
+                        <span class="ls__title">{lesson.title}</span>
+                        <span class="ls__state">{stateLabel[st]}</span>
+                        <span class="ls__min tnum">{lesson.minutes}′</span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ol>
+            ) : (
+              <p class="lvl__buy">
+                <a href="/#cap-do">Mở Cấp {level.n}</a>
+              </p>
+            )}
+          </section>
+        );
+      })
+    }
+  </div>
+</App>
+
+<style>
+  .top {
+    padding-block: var(--s-4) var(--s-3);
+    display: grid;
+    gap: var(--s-3);
+    justify-items: start;
+  }
+  .top__h {
+    font-size: var(--t-h2);
+  }
+
+  .err {
+    border-left: 2px solid var(--edit);
+    padding-left: var(--s-3);
+    color: var(--edit);
+    font-size: var(--t-small);
+  }
+
+  /* The one action this screen exists for. */
+  .resume {
+    display: grid;
+    gap: 0.2rem;
+    width: 100%;
+    max-width: 34rem;
+    padding: var(--s-3);
+    background: var(--edit);
+    color: var(--paper);
+    text-decoration: none;
+    box-shadow: var(--lift-1);
+    transition:
+      transform 160ms var(--ease),
+      box-shadow 160ms var(--ease);
+  }
+  .resume:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--lift-2);
+  }
+  .resume__label {
+    font-size: var(--t-micro);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .resume__title {
+    font-family: var(--face-display);
+    font-size: var(--t-h3);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .resume__meta {
+    font-size: var(--t-small);
+    opacity: 0.85;
+  }
+
+  .empty {
+    display: grid;
+    gap: var(--s-2);
+    justify-items: start;
+    max-width: 40rem;
+  }
+  .empty__h {
+    font-family: var(--face-display);
+    font-size: var(--t-h3);
+    font-weight: 600;
+  }
+  .empty__p {
+    color: var(--ink-2);
+  }
+  .empty__cta {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding-inline: 1.1rem;
+    border: 1.5px solid var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: var(--s-1);
+  }
+
+  .tally {
+    font-size: var(--t-small);
+    color: var(--ink-3);
+  }
+
+  .score {
+    padding-bottom: var(--s-6);
+    display: grid;
+    gap: var(--s-5);
+  }
+
+  .lvl {
+    display: grid;
+    gap: var(--s-2);
+  }
+  .lvl--locked {
+    opacity: 0.72;
+  }
+  .lvl__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-3);
+    flex-wrap: wrap;
+  }
+  .lvl__h {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    font-size: var(--t-h3);
+  }
+  .lvl__n {
+    font-family: var(--face-text);
+    font-size: var(--t-micro);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+  }
+  .lvl__count {
+    font-size: var(--t-small);
+    color: var(--ink-3);
+  }
+
+  .lessons {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    max-width: 44rem;
+  }
+  .ls__link {
+    display: grid;
+    grid-template-columns: 1.6rem 1fr auto auto;
+    align-items: baseline;
+    gap: var(--s-2) var(--s-3);
+    min-height: 44px;
+    padding-block: 0.55rem;
+    border-bottom: 1px solid var(--paper-edge);
+    text-decoration: none;
+    color: var(--ink-2);
+    transition: color 150ms var(--ease);
+  }
+  .ls__link:hover {
+    color: var(--edit);
+  }
+  .ls__n {
+    color: var(--ink-3);
+    font-size: var(--t-small);
+  }
+  .ls__title {
+    color: var(--ink);
+  }
+  .ls__link:hover .ls__title {
+    color: var(--edit);
+  }
+  .ls__state,
+  .ls__min {
+    font-size: var(--t-small);
+    color: var(--ink-3);
+  }
+  .ls--current .ls__title {
+    font-weight: 600;
+  }
+  .ls--current .ls__state {
+    color: var(--edit);
+  }
+  .ls--done .ls__title {
+    color: var(--ink-3);
+  }
+
+  .lvl__buy a {
+    font-size: var(--t-small);
+    color: var(--ink-2);
+  }
+
+  @media (max-width: 560px) {
+    .ls__link {
+      grid-template-columns: 1.6rem 1fr auto;
+    }
+    .ls__state {
+      grid-column: 2 / -1;
+    }
+  }
+</style>

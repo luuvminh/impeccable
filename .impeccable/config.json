@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-color",
+        "value": "rgb(0, 0, 0)",
+        "createdAt": "2026-08-16T14:46:35.403Z",
+        "reason": "Static-analysis artifact, verified at runtime: the only element flagged is the skip link, whose Astro-scoped rule sets color:var(--paper) on background:var(--ink). Chromium computes rgb(237,239,234) on rgb(18,21,26) and focus moves it to left:8px. The detector cannot resolve var() through the scoped selector and falls back to black. No literal black exists anywhere in the source."
+      }
+    ]
+  }
+}

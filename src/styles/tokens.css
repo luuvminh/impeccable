@@ -1,0 +1,85 @@
+/* Bản Khắc — tokens
+   The page is set as an engraved score. Ink and paper are the ground; the
+   editor's red is the teacher's pencil and the only colour that ever asks the
+   reader to act. Press green holds whole regions, never hairlines. */
+
+:root {
+  /* ---- ink & paper ---- */
+  --paper: #edefea;          /* score stock, cool — deliberately not cream */
+  --paper-2: #e4e7e0;        /* gathered / recto-verso shade */
+  --paper-edge: #d5d9d0;
+  --ink: #12151a;            /* printing ink */
+  --ink-2: #3a4048;          /* engraved secondary */
+  --ink-3: #5a626c;          /* captions — 5.34:1 on paper, 4.95:1 on paper-2 */
+
+  /* ---- the teacher's pencil ----
+     Saturated red is reserved for two jobs only: the primary action, and
+     Mây's own margin hand. Nothing else on the page may claim it. */
+  --edit: #a32b22;           /* 6.2:1 on paper */
+
+  /* ---- unresolved passages ----
+     An editor's bracket is a note to the engraver, not a call to action, so
+     it is set in ink and must stay quieter than the CTA. */
+  --pending-ink: #3a4048;
+  --pending-line: #8e8079;
+  --pending-wash: rgba(163, 43, 34, 0.045);
+  --pending-ink-dark: #cdd3d6;
+  --pending-line-dark: #7d8890;
+
+  /* Editor's red is only 2.7:1 on the room's ground, so the dark passage
+     carries its own focus colour. */
+  --focus-dark: #e08a80;     /* 7.5:1 on --room */
+
+  /* ---- press green: fields, not hairlines ---- */
+  --press: #24463c;
+  --press-2: #1a332c;
+  --press-ink: #dfe7e1;
+
+  /* ---- the evening room (the page's one dark passage) ---- */
+  --room: #0c0e11;
+  --room-ink: #e8eae5;
+  --room-ink-2: #9aa3a9;
+
+  /* The page prints staves at two weights, deliberately. The hero system is
+     the printed original and draws its lines in full ink (see PlayableSystem);
+     the level systems are ruled staves carrying content, set lighter so the
+     dynamics and copy stay the darker marks on them. */
+  --stave-line: rgba(18, 21, 26, 0.47); /* #868988 over paper — 3.05:1 */
+
+  /* ---- stave geometry ----
+     SMuFL sets 1em = 4 staff spaces, so glyph size is always 4x this. */
+  --staff-space: 9px;
+
+  /* ---- type ---- */
+  --face-display: 'Piazzolla', 'Iowan Old Style', Georgia, serif;
+  --face-text: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --face-music: 'Bravura', serif;
+
+  /* Type scale — 1.25 at the small end, opening to 1.32 for display sizes. */
+  --t-micro: 0.75rem;
+  --t-small: 0.875rem;
+  --t-body: 1.0625rem;
+  --t-lead: 1.25rem;
+  --t-h3: clamp(1.25rem, 1.9vw, 1.5rem);
+  --t-h2: clamp(1.75rem, 3.4vw, 2.75rem);
+  --t-h1: clamp(2.75rem, 8.5vw, 6rem);
+
+  /* ---- rhythm ---- */
+  --s-1: 0.375rem;
+  --s-2: 0.75rem;
+  --s-3: 1.25rem;
+  --s-4: 2rem;
+  --s-5: 3.25rem;
+  --s-6: 5rem;
+  --s-7: 8rem;
+
+  --measure: 66ch;
+  --page: 1160px;
+  --page-narrow: 780px;
+
+  /* Engraved depth: offset plus soft blur, never a zero-offset halo. */
+  --lift-1: 0 1px 2px rgba(18, 21, 26, 0.07), 0 6px 16px -10px rgba(18, 21, 26, 0.22);
+  --lift-2: 0 2px 4px rgba(18, 21, 26, 0.08), 0 18px 40px -22px rgba(18, 21, 26, 0.4);
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}

@@ -1,0 +1,329 @@
+---
+/*
+  One lesson. The screen a learner actually sits in front of, at the piano,
+  usually on a phone on the music stand — so the video leads and everything
+  else gets out of the way. Moving between lessons is a page turn.
+*/
+import App from '../../layouts/App.astro';
+import { currentLearner } from '../../lib/session';
+import { isSample, supabase } from '../../lib/config';
+import { findLesson, getProgress, lessonState } from '../../lib/course';
+import { playbackFor } from '../../lib/video';
+
+const learner = await currentLearner(Astro.cookies);
+const { slug } = Astro.params;
+if (!learner) return Astro.redirect(`/dang-nhap?tiep=/hoc/${slug}`);
+
+const found = findLesson(slug!);
+if (!found) return Astro.redirect('/hoc');
+const { level, lesson } = found;
+
+let progress = await getProgress(learner.sample ? null : learner.id);
+let saveError: string | null = null;
+
+if (Astro.request.method === 'POST') {
+  const form = await Astro.request.formData();
+  const wantDone = form.get('xong') === '1';
+
+  if (isSample) {
+    // Nothing is persisted on the sample course; the screen says so.
+    if (wantDone) progress.done.add(lesson.slug);
+    else progress.done.delete(lesson.slug);
+  } else {
+    const headers = {
+      apikey: supabase.anonKey!,
+      Authorization: `Bearer ${supabase.anonKey!}`,
+      'Content-Type': 'application/json',
+      Prefer: 'resolution=merge-duplicates',
+    };
+    const res = wantDone
+      ? await fetch(`${supabase.url}/rest/v1/lesson_progress`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ user_id: learner.id, lesson_slug: lesson.slug }),
+        })
+      : await fetch(
+          `${supabase.url}/rest/v1/lesson_progress?user_id=eq.${learner.id}&lesson_slug=eq.${lesson.slug}`,
+          { method: 'DELETE', headers }
+        );
+    if (res.ok) progress = await getProgress(learner.id);
+    else saveError = 'Chưa lưu được. Bấm lại giúp em, hoặc tải lại trang.';
+  }
+}
+
+const owned = progress.owned.has(level.id);
+const state = lessonState(lesson, level, progress);
+const done = progress.done.has(lesson.slug);
+const play = playbackFor(lesson.videoId);
+
+const i = level.lessons.findIndex((l) => l.slug === lesson.slug);
+const prev = level.lessons[i - 1];
+const next = level.lessons[i + 1];
+---
+
+<App title={lesson.title} learner={learner} sample={isSample}>
+  {
+    !owned ? (
+      <div class="page gate">
+        <h1 class="gate__h">Bài này thuộc Cấp {level.n}</h1>
+        <p class="gate__p">
+          Bạn chưa mở cấp này. Mở rồi thì toàn bộ bài trong cấp xem được ngay,
+          tua lại bao nhiêu lần cũng được.
+        </p>
+        <a class="gate__cta" href="/#cap-do">Xem Cấp {level.n}</a>
+        <p class="gate__back"><a href="/hoc">Về tổng phổ</a></p>
+      </div>
+    ) : (
+      <>
+        <div class="page crumbs">
+          <a href="/hoc">Tổng phổ</a>
+          <span aria-hidden="true">/</span>
+          <span>
+            Cấp {level.n} · {level.name}
+          </span>
+        </div>
+
+        <div class="page stage">
+          <div class="player">
+            {play.ready ? (
+              <video
+                class="player__video"
+                controls
+                playsinline
+                preload="metadata"
+                poster={play.poster}
+                src={play.src}
+              />
+            ) : (
+              <div class="player__pending">
+                <p class="pending">
+                  <b>Video bài này chưa lên.</b> Màn hình đã sẵn sàng phát; khi Bunny
+                  Stream được nối và bài có video, nó xuất hiện đúng ở khung này với
+                  link ký hạn để không ai chuyền tay được.
+                </p>
+              </div>
+            )}
+          </div>
+
+          <div class="meta">
+            <h1 class="meta__h">
+              <span class="meta__n tnum">Bài {lesson.n}</span>
+              <span>{lesson.title}</span>
+            </h1>
+            <p class="meta__min tnum">{lesson.minutes} phút</p>
+
+            {saveError && (
+              <p class="meta__err" role="alert">
+                {saveError}
+              </p>
+            )}
+
+            <form method="POST" class="mark">
+              <input type="hidden" name="xong" value={done ? '0' : '1'} />
+              <button type="submit" class={`mark__btn ${done ? 'is-done' : ''}`}>
+                {done ? 'Đã học xong · bỏ đánh dấu' : 'Đánh dấu đã học xong'}
+              </button>
+            </form>
+
+            {isSample && (
+              <p class="mark__note">
+                Đánh dấu trên khoá mẫu không được lưu lại sau khi tải lại trang.
+              </p>
+            )}
+            {state === 'current' && !done && (
+              <p class="mark__note">Đây là bài bạn đang dở.</p>
+            )}
+          </div>
+        </div>
+
+        <nav class="page turn" aria-label="Chuyển bài">
+          {prev ? (
+            <a class="turn__link turn__link--prev" href={`/hoc/${prev.slug}`}>
+              <span class="turn__dir">Bài trước</span>
+              <span class="turn__title">{prev.title}</span>
+            </a>
+          ) : (
+            <span />
+          )}
+          {next ? (
+            <a class="turn__link turn__link--next" href={`/hoc/${next.slug}`}>
+              <span class="turn__dir">Bài tiếp</span>
+              <span class="turn__title">{next.title}</span>
+            </a>
+          ) : (
+            <a class="turn__link turn__link--next" href="/hoc">
+              <span class="turn__dir">Hết cấp {level.n}</span>
+              <span class="turn__title">Về tổng phổ</span>
+            </a>
+          )}
+        </nav>
+      </>
+    )
+  }
+</App>
+
+<style>
+  .crumbs {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding-block: var(--s-3);
+    font-size: var(--t-small);
+    color: var(--ink-3);
+  }
+  .crumbs a {
+    color: var(--ink-2);
+  }
+
+  .stage {
+    display: grid;
+    gap: var(--s-4);
+    padding-bottom: var(--s-4);
+  }
+  @media (min-width: 940px) {
+    .stage {
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      gap: var(--s-5);
+      align-items: start;
+    }
+  }
+
+  .player__video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--room);
+    display: block;
+  }
+  .player__pending {
+    aspect-ratio: 16 / 9;
+    display: grid;
+    align-content: center;
+    background: var(--paper-2);
+    padding: var(--s-3);
+  }
+
+  .meta {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+    justify-items: start;
+  }
+  .meta__h {
+    display: grid;
+    gap: 0.2rem;
+    font-size: var(--t-h3);
+  }
+  .meta__n {
+    font-family: var(--face-text);
+    font-size: var(--t-micro);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+  }
+  .meta__min {
+    font-size: var(--t-small);
+    color: var(--ink-3);
+  }
+  .meta__err {
+    font-size: var(--t-small);
+    color: var(--edit);
+    border-left: 2px solid var(--edit);
+    padding-left: var(--s-2);
+  }
+
+  .mark__btn {
+    min-height: 48px;
+    padding-inline: 1.2rem;
+    border: 1.5px solid var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--face-text);
+    font-size: var(--t-body);
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: var(--s-2);
+    transition:
+      background 150ms var(--ease),
+      color 150ms var(--ease);
+  }
+  .mark__btn:hover {
+    background: var(--edit);
+    border-color: var(--edit);
+  }
+  .mark__btn.is-done {
+    background: transparent;
+    color: var(--ink-2);
+    border-color: var(--paper-edge);
+  }
+  .mark__btn.is-done:hover {
+    color: var(--edit);
+    border-color: var(--edit);
+    background: transparent;
+  }
+  .mark__note {
+    font-size: var(--t-small);
+    color: var(--ink-3);
+    max-width: 34ch;
+  }
+
+  .turn {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-3);
+    padding-block: var(--s-4) var(--s-6);
+    border-top: 1px solid var(--paper-edge);
+  }
+  .turn__link {
+    display: grid;
+    gap: 0.15rem;
+    min-height: 44px;
+    align-content: center;
+    text-decoration: none;
+    color: var(--ink-2);
+    transition: color 150ms var(--ease);
+  }
+  .turn__link:hover {
+    color: var(--edit);
+  }
+  .turn__link--next {
+    text-align: right;
+  }
+  .turn__dir {
+    font-size: var(--t-micro);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .turn__title {
+    font-family: var(--face-display);
+    font-weight: 600;
+  }
+
+  .gate {
+    padding-block: var(--s-5) var(--s-6);
+    display: grid;
+    gap: var(--s-3);
+    justify-items: start;
+    max-width: 40rem;
+  }
+  .gate__h {
+    font-size: var(--t-h2);
+  }
+  .gate__p {
+    color: var(--ink-2);
+  }
+  .gate__cta {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    padding-inline: 1.3rem;
+    background: var(--edit);
+    color: var(--paper);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .gate__back {
+    font-size: var(--t-small);
+  }
+</style>

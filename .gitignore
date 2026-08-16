@@ -39,3 +39,10 @@
 
 # Node
 node_modules/
+
+# Astro build output and cache
+dist/
+.astro/
+
+# Impeccable review captures (regenerated each inspection round)
+.impeccable/review/
