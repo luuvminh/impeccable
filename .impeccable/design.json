@@ -1,0 +1,301 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-16T00:00:00Z",
+  "title": "Design System: Mây Piano",
+  "extensions": {
+    "colorMeta": {
+      "edit": {
+        "role": "primary",
+        "displayName": "Editor's Red",
+        "canonical": "#a32b22",
+        "tonalRamp": ["#2b0a07", "#4c110d", "#6d1a14", "#8d221a", "#a32b22", "#c8564c", "#e0918a", "#f3d3d0"]
+      },
+      "edit-pressed": {
+        "role": "primary",
+        "displayName": "Editor's Red Pressed",
+        "canonical": "#8d221a",
+        "tonalRamp": ["#240806", "#40100c", "#5d1712", "#7a1e17", "#8d221a", "#b74a41", "#d98d86", "#f0d0cd"]
+      },
+      "press": {
+        "role": "secondary",
+        "displayName": "Press Green",
+        "canonical": "#24463c",
+        "tonalRamp": ["#0a1512", "#12241e", "#1a332c", "#24463c", "#2f5d50", "#4a8878", "#8bbdae", "#d3e6df"]
+      },
+      "press-2": {
+        "role": "secondary",
+        "displayName": "Press Deep",
+        "canonical": "#1a332c",
+        "tonalRamp": ["#080f0d", "#0f1e1a", "#1a332c", "#24463c", "#2f5d50", "#4a8878", "#8bbdae", "#d3e6df"]
+      },
+      "press-ink": {
+        "role": "secondary",
+        "displayName": "Press Ink",
+        "canonical": "#dfe7e1",
+        "tonalRamp": ["#1a231e", "#2c3a33", "#41544a", "#5e7469", "#849a8f", "#aec0b6", "#dfe7e1", "#f2f6f3"]
+      },
+      "room": {
+        "role": "tertiary",
+        "displayName": "Evening Room",
+        "canonical": "#0c0e11",
+        "tonalRamp": ["#0c0e11", "#14181d", "#22282f", "#343c45", "#4d5761", "#6f7a85", "#9aa3a9", "#d4d9dd"]
+      },
+      "room-ink": {
+        "role": "tertiary",
+        "displayName": "Room Ink",
+        "canonical": "#e8eae5",
+        "tonalRamp": ["#1c1e1b", "#2f322e", "#454944", "#5f645e", "#838881", "#adb2aa", "#e8eae5", "#f5f6f3"]
+      },
+      "room-ink-2": {
+        "role": "tertiary",
+        "displayName": "Room Ink Muted",
+        "canonical": "#9aa3a9",
+        "tonalRamp": ["#191d20", "#2a3034", "#3e454a", "#565e64", "#737c82", "#9aa3a9", "#c2c9cd", "#e6eaec"]
+      },
+      "focus-dark": {
+        "role": "tertiary",
+        "displayName": "Dark-passage Focus",
+        "canonical": "#e08a80",
+        "tonalRamp": ["#2f100c", "#4c1a15", "#6b2620", "#8d352d", "#b0483e", "#c96a5f", "#e08a80", "#f5cec9"]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Score Stock",
+        "canonical": "#edefea",
+        "tonalRamp": ["#15170f", "#282b23", "#3d4139", "#565a51", "#767a70", "#a0a49a", "#d5d9d0", "#edefea"]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Gathered Stock",
+        "canonical": "#e4e7e0",
+        "tonalRamp": ["#14170f", "#262a22", "#3b3f37", "#54584f", "#74786e", "#9ea298", "#cbd0c6", "#e4e7e0"]
+      },
+      "paper-edge": {
+        "role": "neutral",
+        "displayName": "Stock Edge",
+        "canonical": "#d5d9d0",
+        "tonalRamp": ["#13160e", "#252921", "#3a3e36", "#53574e", "#73776d", "#9da197", "#d5d9d0", "#eef0ea"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Printing Ink",
+        "canonical": "#12151a",
+        "tonalRamp": ["#12151a", "#22262d", "#3a4048", "#5a626c", "#868e98", "#adb4bd", "#d3d8de", "#eef0f3"]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Engraved Secondary",
+        "canonical": "#3a4048",
+        "tonalRamp": ["#12151a", "#22262d", "#3a4048", "#5a626c", "#868e98", "#adb4bd", "#d3d8de", "#eef0f3"]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Caption Ink",
+        "canonical": "#5a626c",
+        "tonalRamp": ["#12151a", "#22262d", "#3a4048", "#5a626c", "#868e98", "#adb4bd", "#d3d8de", "#eef0f3"]
+      },
+      "stave-line": {
+        "role": "neutral",
+        "displayName": "Stave Line",
+        "canonical": "rgba(18, 21, 26, 0.47)",
+        "note": "Resolves to #868988 over score stock — 3.05:1. Level systems only; the engraved hero system draws its staff lines in printing ink at 0.85 opacity.",
+        "tonalRamp": ["#12151a", "#2b2f35", "#454a51", "#5f656d", "#868988", "#a8adb0", "#c9cdcd", "#e7e9e8"]
+      },
+      "pending-ink": {
+        "role": "neutral",
+        "displayName": "Pending Ink",
+        "canonical": "#3a4048",
+        "tonalRamp": ["#12151a", "#22262d", "#3a4048", "#5a626c", "#868e98", "#adb4bd", "#d3d8de", "#eef0f3"]
+      },
+      "pending-line": {
+        "role": "neutral",
+        "displayName": "Pending Bracket Stroke",
+        "canonical": "#8e8079",
+        "tonalRamp": ["#1c1815", "#2f2a26", "#463f3a", "#605750", "#8e8079", "#b0a49d", "#cfc7c2", "#ebe6e3"]
+      },
+      "pending-ink-dark": {
+        "role": "neutral",
+        "displayName": "Pending Ink (dark passage)",
+        "canonical": "#cdd3d6",
+        "tonalRamp": ["#191d1f", "#2b3134", "#40484b", "#596266", "#7d8890", "#a4adb2", "#cdd3d6", "#e9ecee"]
+      },
+      "pending-line-dark": {
+        "role": "neutral",
+        "displayName": "Pending Bracket Stroke (dark passage)",
+        "canonical": "#7d8890",
+        "tonalRamp": ["#161a1c", "#272d30", "#3c4448", "#545d62", "#7d8890", "#a5aeb4", "#cbd1d5", "#e8ebed"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Work Title", "purpose": "The work title, once per page, at score title-block position." },
+      "headline": { "displayName": "Section Title", "purpose": "Section headings beside their rehearsal mark; capped 20-22ch." },
+      "title": { "displayName": "Level / Sub-heading", "purpose": "Level names and sub-section headings." },
+      "voice": { "displayName": "The Voice", "purpose": "Display italic. Tempo indication, Mây's margin notes, and the 'who this level is for' line. Italic means a person is speaking." },
+      "lead": { "displayName": "Lede", "purpose": "Section ledes, capped 54-62ch." },
+      "body": { "displayName": "Body", "purpose": "Running text, capped at the 66ch measure." },
+      "small": { "displayName": "Small", "purpose": "Captions, hints, control labels, footnotes." },
+      "label": { "displayName": "Inline Role Label", "purpose": "Uppercase 0.14em label used inline only — composer-position role, level ordinal. Never stacked above a heading as a kicker." },
+      "music": { "displayName": "Notation", "purpose": "Bravura SMuFL codepoints. Real glyphs only, font-display: block." }
+    },
+    "shadows": [
+      { "name": "lift-1", "value": "0 1px 2px rgba(18, 21, 26, 0.07), 0 6px 16px -10px rgba(18, 21, 26, 0.22)", "purpose": "The primary action at rest. The only shadow on a resting element anywhere in the build." },
+      { "name": "lift-2", "value": "0 2px 4px rgba(18, 21, 26, 0.08), 0 18px 40px -22px rgba(18, 21, 26, 0.4)", "purpose": "The primary action on hover, paired with a 1px rise." }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "The only easing curve in the system. Every state transition and the margin-note entrance use it." },
+      { "name": "state-fast", "value": "140ms linear", "purpose": "Notehead fill change during playback." },
+      { "name": "state", "value": "150-180ms var(--ease)", "purpose": "Control hover: background, colour, border-colour, transform, box-shadow." },
+      { "name": "write-in", "value": "700ms var(--ease)", "purpose": "The one authored moment — margin notes fade and rise 6px on intersection at 0.55 threshold, once each. Fully collapsed and pre-revealed under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "how-grid", "value": "760px" },
+      { "name": "title-row", "value": "880px" },
+      { "name": "room-stage", "value": "900px" },
+      { "name": "level-row", "value": "940px" },
+      { "name": "page-max", "value": "1160px" },
+      { "name": "page-narrow", "value": "780px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action (CTA)",
+      "kind": "button",
+      "refersTo": "cta",
+      "description": "The one filled red control per passage. Nothing else on the page may take a red fill.",
+      "html": "<a class=\"ds-cta\" href=\"#cap-do\">Chọn cấp độ của bạn<svg viewBox=\"0 0 20 20\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" aria-hidden=\"true\"><path d=\"M4 10h11M11 5.5 15.5 10 11 14.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></a>",
+      "css": ".ds-cta { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.85rem 1.5rem; background: var(--edit, #a32b22); color: var(--paper, #edefea); font-family: var(--face-text, 'Be Vietnam Pro', system-ui, sans-serif); font-size: 1.0625rem; font-weight: 600; text-decoration: none; border-radius: 0; box-shadow: 0 1px 2px rgba(18,21,26,.07), 0 6px 16px -10px rgba(18,21,26,.22); transition: background 180ms cubic-bezier(.16,1,.3,1), transform 180ms cubic-bezier(.16,1,.3,1), box-shadow 180ms cubic-bezier(.16,1,.3,1); } .ds-cta svg { transition: transform 180ms cubic-bezier(.16,1,.3,1); } .ds-cta:hover { background: #8d221a; transform: translateY(-1px); box-shadow: 0 2px 4px rgba(18,21,26,.08), 0 18px 40px -22px rgba(18,21,26,.4); } .ds-cta:hover svg { transform: translateX(3px); } .ds-cta:active { transform: translateY(0); } .ds-cta:focus-visible { outline: 2px solid var(--edit, #a32b22); outline-offset: 3px; border-radius: 1px; }"
+    },
+    {
+      "name": "Outlined Button (checkout hand-off)",
+      "kind": "button",
+      "refersTo": "button-outlined",
+      "description": "Secondary action. Outlined rather than filled so the loud red stays with the one primary action; names its destination host inside the control because the hand-off leaves the site.",
+      "html": "<a class=\"ds-btn-outlined\" href=\"https://maypiano.me\" target=\"_blank\" rel=\"noopener noreferrer\"><span class=\"ds-btn-outlined__main\">Mua Cấp I</span><span class=\"ds-btn-outlined__host\">maypiano.me<svg viewBox=\"0 0 20 20\" width=\"13\" height=\"13\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" aria-hidden=\"true\"><path d=\"M8 4.5H5.2A1.2 1.2 0 0 0 4 5.7v9.1A1.2 1.2 0 0 0 5.2 16h9.1a1.2 1.2 0 0 0 1.2-1.2V12M11.5 4h4.5v4.5M9 11l7-7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span></a>",
+      "css": ".ds-btn-outlined { display: inline-flex; align-items: center; justify-content: space-between; gap: 0.75rem; width: 100%; min-height: 44px; padding: 0.7rem 1.1rem; border: 1.5px solid var(--ink, #12151a); border-radius: 0; background: transparent; color: var(--ink, #12151a); font-family: var(--face-text, 'Be Vietnam Pro', system-ui, sans-serif); font-size: 1.0625rem; font-weight: 600; text-decoration: none; transition: background 160ms cubic-bezier(.16,1,.3,1), color 160ms cubic-bezier(.16,1,.3,1), border-color 160ms cubic-bezier(.16,1,.3,1); } .ds-btn-outlined__main { white-space: nowrap; } .ds-btn-outlined__host { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.875rem; font-weight: 400; opacity: 0.75; } .ds-btn-outlined svg { flex: none; } .ds-btn-outlined:hover { background: var(--edit, #a32b22); border-color: var(--edit, #a32b22); color: var(--paper, #edefea); } .ds-btn-outlined:focus-visible { outline: 2px solid var(--edit, #a32b22); outline-offset: 3px; border-radius: 1px; }"
+    },
+    {
+      "name": "Play Control",
+      "kind": "button",
+      "refersTo": "button-play",
+      "description": "Sounds the engraved phrase. Inverts to ink on hover; fills editor's red while sounding.",
+      "html": "<button type=\"button\" class=\"ds-btn-play\"><span class=\"ds-btn-play__icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"><path d=\"M4.5 2.8 12.6 8l-8.1 5.2z\" stroke-linejoin=\"round\"></path></svg></span><span>Nghe thử một câu</span></button>",
+      "css": ".ds-btn-play { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.7rem 1.15rem 0.7rem 0.9rem; min-height: 44px; border: 1.5px solid var(--ink, #12151a); border-radius: 0; background: var(--paper, #edefea); color: var(--ink, #12151a); font-family: var(--face-text, 'Be Vietnam Pro', system-ui, sans-serif); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 160ms cubic-bezier(.16,1,.3,1), color 160ms cubic-bezier(.16,1,.3,1), transform 160ms cubic-bezier(.16,1,.3,1); } .ds-btn-play__icon { display: grid; place-items: center; } .ds-btn-play:hover { background: var(--ink, #12151a); color: var(--paper, #edefea); } .ds-btn-play:active { transform: translateY(1px); } .ds-btn-play[aria-disabled='true'] { background: var(--edit, #a32b22); border-color: var(--edit, #a32b22); color: var(--paper, #edefea); cursor: default; } .ds-btn-play:focus-visible { outline: 2px solid var(--edit, #a32b22); outline-offset: 3px; border-radius: 1px; }"
+    },
+    {
+      "name": "Rehearsal Mark Navigation",
+      "kind": "nav",
+      "refersTo": "rehearsal-mark",
+      "description": "Sticky bar of four rehearsal marks on gathered stock. Wraps rather than scrolls so the last destination cannot hide off the right edge.",
+      "html": "<nav class=\"ds-marks\" aria-label=\"Các phần của trang\"><a class=\"ds-marks__item\" href=\"#nguoi-day\"><span class=\"ds-rehearsal\">A</span><span>Người dạy</span></a><a class=\"ds-marks__item\" href=\"#cap-do\"><span class=\"ds-rehearsal\">B</span><span>Bốn cấp độ</span></a><a class=\"ds-marks__item\" href=\"#hoc-vien\"><span class=\"ds-rehearsal\">C</span><span>Học viên</span></a><a class=\"ds-marks__item\" href=\"#cach-hoc\"><span class=\"ds-rehearsal\">D</span><span>Cách học</span></a></nav>",
+      "css": ".ds-marks { display: flex; flex-wrap: wrap; gap: 0.25rem clamp(1rem, 3.5vw, 2.5rem); padding: 0.4rem clamp(1rem, 4.5vw, 3rem); background: var(--paper-2, #e4e7e0); border-block: 1.5px solid var(--ink, #12151a); } .ds-marks__item { display: inline-flex; align-items: center; gap: 0.55rem; min-height: 44px; white-space: nowrap; text-decoration: none; color: var(--ink-2, #3a4048); font-family: var(--face-text, 'Be Vietnam Pro', system-ui, sans-serif); font-size: 0.875rem; transition: color 150ms cubic-bezier(.16,1,.3,1); } .ds-rehearsal { display: inline-flex; align-items: center; justify-content: center; min-width: 2.1em; height: 2.1em; padding-inline: 0.4em; border: 1.5px solid var(--ink, #12151a); border-radius: 0; background: transparent; font-family: var(--face-display, Piazzolla, Georgia, serif); font-weight: 800; font-size: 0.875rem; letter-spacing: 0.02em; color: var(--ink, #12151a); transition: color 150ms cubic-bezier(.16,1,.3,1), border-color 150ms cubic-bezier(.16,1,.3,1); } .ds-marks__item:hover { color: var(--edit, #a32b22); } .ds-marks__item:hover .ds-rehearsal { border-color: var(--edit, #a32b22); color: var(--edit, #a32b22); } .ds-marks__item:focus-visible { outline: 2px solid var(--edit, #a32b22); outline-offset: 3px; border-radius: 1px; }"
+    },
+    {
+      "name": "Pending Bracket",
+      "kind": "card",
+      "refersTo": "pending-bracket",
+      "description": "The engraver's mark on an unresolved passage. Marks every slot awaiting the owner's real material, and is deliberately quieter than any adjacent control.",
+      "html": "<div class=\"ds-pending\"><b>Video Mây đàn, và Mây dạy.</b> Hai đoạn khác nhau: một để nghe tiếng đàn, một để thấy cách hướng dẫn.</div>",
+      "css": ".ds-pending { position: relative; display: block; padding: 1.25rem 1.25rem 1.25rem 1.75rem; background: rgba(163,43,34,.045); color: var(--pending-ink, #3a4048); font-family: var(--face-text, 'Be Vietnam Pro', system-ui, sans-serif); font-size: 0.875rem; line-height: 1.55; border-radius: 0; } .ds-pending b { font-weight: 600; font-style: italic; } .ds-pending::before, .ds-pending::after { content: ''; position: absolute; left: 0; width: 0.5rem; height: 0.5rem; border-left: 1.5px solid var(--pending-line, #8e8079); } .ds-pending::before { top: 0; border-top: 1.5px solid var(--pending-line, #8e8079); } .ds-pending::after { bottom: 0; border-bottom: 1.5px solid var(--pending-line, #8e8079); }"
+    },
+    {
+      "name": "Pending Bracket (dark passage)",
+      "kind": "card",
+      "refersTo": "pending-bracket-dark",
+      "description": "The same mark inside the evening room; a 5% white wash with light ink and a cool grey stroke.",
+      "html": "<div style=\"background:#0c0e11;padding:1.5rem\"><div class=\"ds-pending-dark\"><b>Học vị và kinh nghiệm của Mây.</b> Sẽ ghi đúng từng chữ, không tô vẽ thêm.</div></div>",
+      "css": ".ds-pending-dark { position: relative; display: block; padding: 1.25rem 1.25rem 1.25rem 1.75rem; background: rgba(255,255,255,.05); color: var(--pending-ink-dark, #cdd3d6); font-family: var(--face-text, 'Be Vietnam Pro', system-ui, sans-serif); font-size: 0.875rem; line-height: 1.55; border-radius: 0; } .ds-pending-dark b { font-weight: 600; font-style: italic; } .ds-pending-dark::before, .ds-pending-dark::after { content: ''; position: absolute; left: 0; width: 0.5rem; height: 0.5rem; border-left: 1.5px solid var(--pending-line-dark, #7d8890); } .ds-pending-dark::before { top: 0; border-top: 1.5px solid var(--pending-line-dark, #7d8890); } .ds-pending-dark::after { bottom: 0; border-bottom: 1.5px solid var(--pending-line-dark, #7d8890); }"
+    },
+    {
+      "name": "Outcome Chip",
+      "kind": "chip",
+      "refersTo": "outcome-chip",
+      "description": "What a level leaves you able to do. Static and non-interactive; press-green text on a 9% tint of itself.",
+      "html": "<ul class=\"ds-chips\"><li>Đọc được khuông nhạc khoá Sol</li><li>Hai tay chơi rời rồi ghép</li><li>Giữ được nhịp đều</li></ul>",
+      "css": ".ds-chips { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem 0.5rem; } .ds-chips li { font-family: var(--face-text, 'Be Vietnam Pro', system-ui, sans-serif); font-size: 0.875rem; color: var(--press, #24463c); background: rgba(36,70,60,.09); padding: 0.25rem 0.6rem; border-radius: 0; }"
+    },
+    {
+      "name": "Level System (structural stave)",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Five hairlines as a repeating gradient (1.2px on a 9px period), so they stay crisp at any width and can span a whole row. Opens each level row and is the only separator between levels.",
+      "html": "<div class=\"ds-lv-system\" aria-hidden=\"true\"><span class=\"ds-lv-staff\"></span></div>",
+      "css": ".ds-lv-system { position: relative; height: 74px; color: var(--stave-line, rgba(18,21,26,.47)); } .ds-lv-staff { position: absolute; left: 0; right: 0; top: 0; height: 37.2px; background: repeating-linear-gradient(to bottom, currentColor 0, currentColor 1.2px, transparent 1.2px, transparent 9px); }"
+    },
+    {
+      "name": "Title Block",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The score title block: work title, tempo indication in display italic, and the teacher at composer position — role label inline beside the name, never stacked above it.",
+      "html": "<header class=\"ds-title-block\"><h1 class=\"ds-title-block__work\">Mây&nbsp;Piano</h1><div class=\"ds-title-block__row\"><p class=\"ds-title-block__tempo\">Khoá piano online dạy bằng tiếng Việt. Bốn cấp, từ chưa từng chạm vào đàn đến chơi được tác phẩm mình thích.</p><p class=\"ds-title-block__by\"><span class=\"ds-title-block__role\">Giảng viên</span><span class=\"ds-title-block__name\">Mây</span></p></div></header>",
+      "css": ".ds-title-block { display: grid; gap: 1.25rem; } .ds-title-block__work { margin: 0; font-family: var(--face-display, Piazzolla, Georgia, serif); font-weight: 800; font-size: clamp(2.75rem, 8.5vw, 6rem); line-height: 0.92; letter-spacing: -0.04em; color: var(--ink, #12151a); text-wrap: balance; } .ds-title-block__row { display: grid; gap: 1.25rem; align-items: end; } @media (min-width: 880px) { .ds-title-block__row { grid-template-columns: 1fr auto; gap: 3.25rem; } .ds-title-block__by { justify-self: end; text-align: right; } } .ds-title-block__tempo { margin: 0; max-width: 34ch; font-family: var(--face-display, Piazzolla, Georgia, serif); font-size: clamp(1.0625rem, 2.1vw, 1.4rem); font-style: italic; font-weight: 400; line-height: 1.45; color: var(--ink-2, #3a4048); } .ds-title-block__by { margin: 0; display: flex; align-items: baseline; gap: 0.6rem; } .ds-title-block__role { font-family: var(--face-text, 'Be Vietnam Pro', system-ui, sans-serif); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3, #5a626c); } .ds-title-block__name { font-family: var(--face-display, Piazzolla, Georgia, serif); font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; color: var(--ink, #12151a); }"
+    },
+    {
+      "name": "Margin Note",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Mây's own hand in the margin: display italic in editor's red on a 1px red rule. The page's one authored motion moment — it writes itself in on intersection.",
+      "html": "<aside class=\"ds-margin-note ds-is-written\"><span class=\"ds-margin-note__hand\">Chưa biết gì cũng bắt đầu được từ Cấp I. Ai cũng từng ngồi xuống lần đầu.</span><span class=\"ds-margin-note__sign\">— Mây</span></aside>",
+      "css": ".ds-margin-note { display: grid; gap: 0.35rem; justify-items: start; padding-left: 1.25rem; border-left: 1px solid var(--edit, #a32b22); max-width: 46ch; opacity: 0; transform: translateY(6px); transition: opacity 700ms cubic-bezier(.16,1,.3,1), transform 700ms cubic-bezier(.16,1,.3,1); } .ds-margin-note.ds-is-written { opacity: 1; transform: none; } .ds-margin-note__hand { font-family: var(--face-display, Piazzolla, Georgia, serif); font-style: italic; font-size: 1.0625rem; line-height: 1.5; color: var(--edit, #a32b22); } .ds-margin-note__sign { font-family: var(--face-text, 'Be Vietnam Pro', system-ui, sans-serif); font-size: 0.875rem; color: var(--edit, #a32b22); } @media (prefers-reduced-motion: reduce) { .ds-margin-note { opacity: 1; transform: none; transition: none; } }"
+    },
+    {
+      "name": "Final Barline",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "A score ends on a thin-then-thick final barline, so the page does too. Drawn as SVG at the same 10-unit staff space as the engraved system.",
+      "html": "<div style=\"background:#24463c;padding:2rem\"><svg class=\"ds-close\" viewBox=\"0 -2 400 44\" role=\"presentation\"><rect class=\"ds-close__line\" x=\"0\" y=\"-0.65\" width=\"400\" height=\"1.3\"/><rect class=\"ds-close__line\" x=\"0\" y=\"9.35\" width=\"400\" height=\"1.3\"/><rect class=\"ds-close__line\" x=\"0\" y=\"19.35\" width=\"400\" height=\"1.3\"/><rect class=\"ds-close__line\" x=\"0\" y=\"29.35\" width=\"400\" height=\"1.3\"/><rect class=\"ds-close__line\" x=\"0\" y=\"39.35\" width=\"400\" height=\"1.3\"/><rect class=\"ds-close__line\" x=\"388\" y=\"0\" width=\"1.6\" height=\"40\"/><rect class=\"ds-close__line\" x=\"394\" y=\"0\" width=\"5\" height=\"40\"/></svg></div>",
+      "css": ".ds-close { display: block; width: 100%; max-width: 420px; height: auto; color: rgba(223,231,225,.4); } .ds-close__line { fill: currentColor; opacity: 0.85; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Bản Khắc — The Engraved Score",
+    "overview": "The page is set on the stave rather than decorated with music. Everything the surface knows how to do it learned from music engraving: a title block that puts the work title, the tempo indication and the composer's line where a printed score puts them; five-line systems that carry content instead of framing it; rehearsal marks that name places so a teacher can say 'from B'; a coda that closes on a thin-then-thick final barline. Notation is set in real SMuFL glyphs from Bravura, never in unicode look-alikes, and the notation font loads with font-display: block so a stave never flashes a letterform.\n\nThe density is that of a printed page, not an app: flat cool stock, ink hierarchy carried by three greys rather than by boxes, and almost no borders that are not either a stave, a rehearsal-mark box, or a control outline. Depth is essentially absent — one soft two-layer lift exists and it belongs to a single control. Colour is rationed hard: the whole surface is ink on paper except three whole-field passages (the evening room, the press-green coda, the gathered student stock) and one saturated red that means act or the teacher is speaking.\n\nVietnamese is a hard typographic constraint, not a locale setting. Both text faces were chosen for full Vietnamese coverage first and character second, because Vietnamese stacks two diacritic tiers and a face missing them falls back to the system font on exactly those glyphs — a break only a Vietnamese reader sees. All three faces are self-hosted, subset, and preloaded; there is no CDN anywhere in the critical path.",
+    "keyCharacteristics": [
+      "Ink on cool stock (#EDEFEA), never cream, never white",
+      "One action colour, rationed to a single filled control per passage",
+      "Zero corner radius on every surface and control",
+      "Five-line staves as structure, not ornament",
+      "Real notation glyphs; inline SVG for the two UI icons",
+      "One authored motion moment on the whole page"
+    ],
+    "rules": [
+      { "name": "The One Red Rule", "body": "Saturated red is a fill on exactly one control per passage — the primary action. Everywhere else it may only be a hairline, an underline, a focus ring, a hover state, or the teacher's own italic hand. A second red-filled control on a screen is a bug.", "section": "colors" },
+      { "name": "The Bracket Is Not A Button Rule", "body": "Slots awaiting the owner's real material are set in the pending family — ink type (#3a4048), a warm grey bracket stroke (#8e8079), and a 4.5%-opacity wash — precisely so an unfinished passage can never out-shout the action next to it. Never promote a pending bracket to the action colour.", "section": "colors" },
+      { "name": "The Whole-Field Rule", "body": "Press green is a field or a glyph fill. It never becomes a border, a divider, or a hairline.", "section": "colors" },
+      { "name": "The Italic Is A Voice Rule", "body": "Display italic is reserved for someone speaking to the reader. If nobody is talking, it is not italic.", "section": "typography" },
+      { "name": "The Tight-Display Rule", "body": "Display and headline type is set at weight 800 with negative tracking that increases with size (−0.012em at title, −0.022em at headline, −0.04em at display). Never letterspace the serif open.", "section": "typography" },
+      { "name": "The No-Eyebrow Rule", "body": "The uppercase 0.14em label exists only inline, on the baseline row of the thing it qualifies. It is never stacked above a heading as a kicker or eyebrow, and never used as a section label.", "section": "typography" },
+      { "name": "The Real-Glyph Rule", "body": "Musical symbols are Bravura codepoints, never unicode stand-ins, never an image. Adding a symbol means re-cutting the subset; an uncut codepoint renders as nothing by design.", "section": "typography" },
+      { "name": "The Vietnamese-First Rule", "body": "Any face added to this system must carry the full Vietnamese diacritic set and be self-hosted with unicode-range subsets. Coverage decides before character does.", "section": "typography" },
+      { "name": "The Stave Is The Grid Rule", "body": "Where a row needs separating from the next, it opens on a five-line system. The stave is the divider; nothing else divides anything. Never draw a plain rule directly above a stave — at ink weight it reads as a sixth, wrong staff line.", "section": "layout" },
+      { "name": "The Measure Rule", "body": "Paragraphs are capped at 66ch by default and headings at 20–24ch. A full-bleed line of text is out of world.", "section": "layout" },
+      { "name": "The One Lifted Thing Rule", "body": "Only the primary action carries a shadow. Cards, panels, media wells and pending brackets stay flat on the sheet; separate them with tone or a stave instead.", "section": "elevation" },
+      { "name": "The Square Corner Rule", "body": "Radius is 0 on every surface and control. The only exceptions are the 1px focus ring and the scrollbar thumb.", "section": "shapes" },
+      { "name": "The Two Staves Rule", "body": "Notation that must be read is SVG at SMuFL metrics with real glyphs. Structural staves that must span an arbitrary width are a repeating gradient. Never draw a readable system with a gradient, and never stretch an SVG system to fill a row.", "section": "components" },
+      { "name": "The One Motion Rule", "body": "The page has one authored motion moment: the teacher's margin notes write themselves in on intersection (700ms, opacity plus a 6px rise, once each), plus notehead highlighting during playback. Everything else is a 140–180ms state transition on a control. prefers-reduced-motion collapses all of it and reveals the notes immediately.", "section": "components" },
+      { "name": "The Claimed-Surfaces Rule", "body": "Browser defaults belong to no design system, so this one claims them: selection, caret, accent-color, scrollbar track and thumb, focus ring, and link underline offset (0.22em) and colour. Numerals that sit in columns take tabular-nums.", "section": "components" }
+    ],
+    "dos": [
+      "Do open a new row or section on a five-line system and let it do the dividing.",
+      "Do keep the saturated red to one filled control per passage; use ink outlines for every secondary action.",
+      "Do set anything the owner still owes as a pending bracket, in the pending ink family, with a bold-italic phrase naming exactly what is missing.",
+      "Do use real Bravura codepoints for musical symbols and re-cut the subset when you add one.",
+      "Do check any new text colour against its actual ground and record the ratio next to the token, as --ink-3 (5.34:1) and --focus-dark (7.5:1 on the room) already do.",
+      "Do substitute the dark-passage focus colour inside the evening room; editor's red is only ~2.7:1 there.",
+      "Do give every interactive control a 44px minimum target, growing the hit area around a small printed mark rather than inflating the mark.",
+      "Do cap paragraphs at the 66ch measure and headings at 20–24ch.",
+      "Do self-host any new face with unicode-range subsets and full Vietnamese coverage."
+    ],
+    "donts": [
+      "Don't round a corner. Radius is 0 except the 1px focus ring and the scrollbar thumb.",
+      "Don't add a shadow to anything but the primary action, and never a zero-offset halo or a hard offset shadow.",
+      "Don't build cards. Group with tone, spacing and staves.",
+      "Don't let a pending bracket, a chip, or a price note take the action colour.",
+      "Don't use press green for a hairline, border or divider.",
+      "Don't stack an uppercase tracked label above a heading as a kicker or eyebrow; that label only ever sits inline beside its partner.",
+      "Don't use a unicode character, an emoji, or an icon font where a notation glyph belongs — and use inline SVG, not a glyph font, for UI icons.",
+      "Don't scatter hover reveals or entrance animations; the page has one authored motion moment and the budget is spent.",
+      "Don't load a font from a CDN.",
+      "Don't reintroduce the course-landing furniture this world refuses: instructor hero, benefit columns, testimonial cards, pricing table, FAQ accordion."
+    ]
+  }
+}

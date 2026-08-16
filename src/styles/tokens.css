@@ -16,8 +16,6 @@
      Saturated red is reserved for two jobs only: the primary action, and
      Mây's own margin hand. Nothing else on the page may claim it. */
   --edit: #a32b22;           /* 6.2:1 on paper */
-  --edit-soft: #c8564c;      /* decorative rules only, never text */
-  --edit-wash: rgba(163, 43, 34, 0.09);
 
   /* ---- unresolved passages ----
      An editor's bracket is a note to the engraver, not a call to action, so
@@ -39,18 +37,18 @@
 
   /* ---- the evening room (the page's one dark passage) ---- */
   --room: #0c0e11;
-  --room-2: #14181d;
   --room-ink: #e8eae5;
   --room-ink-2: #9aa3a9;
 
-  /* A staff line is printing, not a divider. One weight for every stave on the
-     page, so the hero's system and the level systems read as the same ink. */
+  /* The page prints staves at two weights, deliberately. The hero system is
+     the printed original and draws its lines in full ink (see PlayableSystem);
+     the level systems are ruled staves carrying content, set lighter so the
+     dynamics and copy stay the darker marks on them. */
   --stave-line: rgba(18, 21, 26, 0.47); /* #868988 over paper — 3.05:1 */
 
   /* ---- stave geometry ----
      SMuFL sets 1em = 4 staff spaces, so glyph size is always 4x this. */
   --staff-space: 9px;
-  --staff-font: calc(var(--staff-space) * 4);
 
   /* ---- type ---- */
   --face-display: 'Piazzolla', 'Iowan Old Style', Georgia, serif;

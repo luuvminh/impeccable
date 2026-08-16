@@ -72,7 +72,6 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--ink-3);
   border: 3px solid var(--paper-2);
-  border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--ink-2);
@@ -198,9 +197,11 @@ a.rehearsal::after {
 }
 
 /* ---------------------------------------------------------------
-   The editor's mark. Every slot still waiting on real material from
-   the owner is bracketed in the teacher's own red, because on a score
-   that is exactly what an unresolved passage looks like.
+   The editor's mark. Every slot still waiting on real material is
+   bracketed, because on a score that is exactly what an unresolved
+   passage looks like. Set in ink and warm grey over the faintest red
+   wash — NOT in the teacher's red: this marks unfinished work, and it
+   must never compete with the one action on the page.
    --------------------------------------------------------------- */
 
 .pending {
