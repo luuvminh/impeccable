@@ -43,6 +43,10 @@
   --room-ink: #e8eae5;
   --room-ink-2: #9aa3a9;
 
+  /* A staff line is printing, not a divider. One weight for every stave on the
+     page, so the hero's system and the level systems read as the same ink. */
+  --stave-line: rgba(18, 21, 26, 0.47); /* #868988 over paper — 3.05:1 */
+
   /* ---- stave geometry ----
      SMuFL sets 1em = 4 staff spaces, so glyph size is always 4x this. */
   --staff-space: 9px;

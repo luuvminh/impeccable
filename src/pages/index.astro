@@ -691,13 +691,15 @@ const sections = [
   .levels {
     padding-block: clamp(3rem, 8vw, 6rem);
   }
+  /* No opening rule: an ink line directly above row one's five hairlines read
+     as a sixth staff line four times darker than the rest. The staves are the
+     structure now, so nothing else needs to divide anything. */
   .levels__list {
     list-style: none;
-    margin: 0;
+    margin: var(--s-4) 0 0;
     padding: 0;
     display: grid;
     gap: 0;
-    border-top: 1.5px solid var(--ink);
   }
 
   .lv {
@@ -725,7 +727,7 @@ const sections = [
   .lv__system {
     position: relative;
     height: 74px;
-    color: var(--paper-edge);
+    color: var(--stave-line);
   }
   .lv__staff {
     position: absolute;
