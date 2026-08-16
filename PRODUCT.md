@@ -92,11 +92,24 @@ network proxy blocks it. No fact here was taken from the existing site.
 **Language:** Vietnamese first. The diaspora audience is Vietnamese-speaking, so
 Vietnamese is the product language, not a localization of an English original.
 
+**Confirmed infrastructure:**
+
+- **Card payments run through Stripe.** The business receives international card
+  revenue through an **Australian** entity, which Stripe supports directly. This
+  is why no merchant-of-record layer is needed — Stripe is unavailable to
+  Vietnamese entities, and that constraint does not apply here.
+- **Vietnamese QR transfers land in a domestic account**, reconciled through a
+  Vietnamese payment service (PayOS or SePay) so access can open without manual
+  checking. The two money flows are deliberately separate.
+- **Lesson video is hosted on Bunny Stream**, chosen for cost and for CDN
+  performance in Asia, with signed time-limited URLs so a purchased lesson link
+  cannot be freely passed around.
+- **Accounts and progress run on Supabase** (Postgres plus auth), Singapore
+  region for latency to learners in Vietnam.
+
 **Undecided — must not be invented:**
 
 - Pricing per level, and course names.
-- Which payment providers handle the card path and the Vietnamese QR path.
-- Where lesson video is hosted, and its cost model.
 - Whether existing Teachable students are migrated, and how.
 - Deployment target.
 

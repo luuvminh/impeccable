@@ -77,6 +77,12 @@ typography:
     fontWeight: 400
     lineHeight: 1
     letterSpacing: "normal"
+  dynamic:
+    fontFamily: "Bravura, serif"
+    fontSize: "2.4rem"
+    fontWeight: 400
+    lineHeight: 1.2
+    letterSpacing: "normal"
 rounded:
   none: "0"
   focus: "1px"
@@ -151,6 +157,15 @@ components:
     typography: "{typography.small}"
     rounded: "{rounded.none}"
     padding: "0.25rem 0.6rem"
+  level-system:
+    backgroundColor: "transparent"
+    textColor: "{colors.stave-line}"
+    rounded: "{rounded.none}"
+    height: "74px"
+  level-dynamic:
+    backgroundColor: "transparent"
+    textColor: "{colors.press}"
+    typography: "{typography.dynamic}"
 ---
 
 # Design System: Mây Piano
@@ -159,7 +174,7 @@ components:
 
 **Creative North Star: "Bản Khắc — The Engraved Score"**
 
-The page is set *on* the stave rather than decorated with music. Everything the surface knows how to do it learned from music engraving: a title block that puts the work title, the tempo indication and the composer's line where a printed score puts them; five-line systems that carry content instead of framing it; rehearsal marks that name places so a teacher can say "from B"; a coda that closes on a thin-then-thick final barline. Notation is set in real SMuFL glyphs from Bravura, never in unicode look-alikes, and the notation font loads with `font-display: block` so a stave never flashes a letterform.
+The page is set *on* the stave rather than decorated with music. Everything the surface knows how to do it learned from music engraving: a title block that puts the work title, the tempo indication and the composer's line where a printed score puts them; five-line systems that carry content instead of framing it; opening dynamics engraved at a system's head to say how loud a movement begins; rehearsal marks that name places so a teacher can say "from B"; a coda that closes on a thin-then-thick final barline. Notation is set in real SMuFL glyphs from Bravura, never in unicode look-alikes, and the notation font loads with `font-display: block` so a stave never flashes a letterform.
 
 The density is that of a printed page, not an app: flat cool stock, ink hierarchy carried by three greys rather than by boxes, and almost no borders that are not either a stave, a rehearsal-mark box, or a control outline. Depth is essentially absent — one soft two-layer lift exists and it belongs to a single control. Colour is rationed hard: the whole surface is ink on paper except three whole-field passages (the evening room, the press-green coda, the gathered student stock) and one saturated red that means *act* or *the teacher is speaking*.
 
@@ -169,7 +184,7 @@ Vietnamese is a hard typographic constraint, not a locale setting. Both text fac
 - Ink on cool stock (#EDEFEA), never cream, never white
 - One action colour, rationed to a single filled control per passage
 - Zero corner radius on every surface and control
-- Five-line staves as structure, not ornament
+- Five-line staves as structure, carrying real engraved marks
 - Real notation glyphs; inline SVG for the two UI icons
 - One authored motion moment on the whole page
 
@@ -182,7 +197,7 @@ Engraver's ink on cool score stock, interrupted by three whole-field passages an
 - **Editor's Red Pressed** (#8d221a): The CTA's hover ground only.
 
 ### Secondary
-- **Press Green** (#24463c): Whole fields and glyph fills — the coda's ground, the stave glyphs in the closing system, the outcome chips' text over a 9% tint of itself. It never draws a line.
+- **Press Green** (#24463c): Whole fields and glyph fills — the coda's ground, the opening dynamic engraved at each level's stave head, the stave glyphs in the closing system, the outcome chips' text over a 9% tint of itself. It never draws a line.
 - **Press Ink** (#dfe7e1) / **Press Deep** (#1a332c): Type on the green field, and the CTA's text when the CTA inverts to paper on green.
 
 ### Tertiary
@@ -191,25 +206,25 @@ Engraver's ink on cool score stock, interrupted by three whole-field passages an
 
 ### Neutral
 - **Score Stock** (#edefea): The page ground, and the `theme-color` the browser chrome is told to match.
-- **Gathered Stock** (#e4e7e0): The second-hand shade for the sticky rehearsal-mark bar and the students section — a recto-verso difference, not a card.
+- **Gathered Stock** (#e4e7e0): The second-hand shade for the sticky rehearsal-mark bar, the scrollbar track, and the students section — a recto-verso difference, not a card.
 - **Stock Edge** (#d5d9d0): The only hairline rule that is not a stave; used on section borders and the "how it works" item tops.
-- **Printing Ink** (#12151a): Body copy, headings, rehearsal-mark boxes, control outlines.
+- **Printing Ink** (#12151a): Body copy, headings, rehearsal-mark boxes, control outlines, and the hero system's staff lines.
 - **Engraved Secondary** (#3a4048): Long-form paragraph text under a heading, and the ink of the pending bracket.
 - **Caption Ink** (#5a626c): Captions, hints, footnotes, scrollbar thumb. Measured at 5.34:1 on stock and 4.95:1 on gathered stock — this is the floor, not a starting point.
-- **Stave Line** (rgba(18,21,26,0.47) → #868988 over stock, 3.05:1): The hairline weight for the level systems.
+- **Ruled Stave** (rgba(18,21,26,0.47) → #868988 over stock, 3.05:1): The lighter of the page's two stave weights, used on the level systems so the dynamics and copy stay the darker marks on them.
 
 ### Named Rules
 **The One Red Rule.** Saturated red is a *fill* on exactly one control per passage — the primary action. Everywhere else it may only be a hairline, an underline, a focus ring, a hover state, or the teacher's own italic hand. A second red-filled control on a screen is a bug.
 
-**The Bracket Is Not A Button Rule.** Slots awaiting the owner's real material are set in the pending family — ink type (#3a4048), a warm grey bracket stroke (#8e8079), and a 4.5%-opacity wash — precisely so an unfinished passage can never out-shout the action next to it. Never promote a pending bracket to the action colour.
+**The Bracket Is Not A Button Rule.** Slots awaiting the owner's real material are set in the pending family — ink type (#3a4048), a warm grey bracket stroke (#8e8079), and a 4.5%-opacity wash — explicitly *not* the teacher's red, precisely so an unfinished passage can never out-shout the one action on the page.
 
-**The Whole-Field Rule.** Press green is a field or a glyph fill. It never becomes a border, a divider, or a hairline.
+**The Whole-Field Rule.** Press green is a field, a glyph fill, or engraved type. It never becomes a border, a divider, or a hairline.
 
 ## Typography
 
 **Display Font:** Piazzolla (with Iowan Old Style, Georgia, serif)
 **Body Font:** Be Vietnam Pro (with system-ui, -apple-system, Segoe UI, sans-serif)
-**Notation Font:** Bravura, a real SMuFL font subset to the ~26 codepoints the page uses (7.6 KB, `font-display: block`)
+**Notation Font:** Bravura, a real SMuFL font subset with `pyftsubset` to the 27 codepoints the page uses (7,584 bytes, `font-display: block`)
 
 **Character:** A heavy engraved serif set very tight against a plain, generously-drawn Vietnamese sans. The serif carries titles and every moment of *voice*; the sans carries everything the page says in its own flat register. Both are self-hosted as latin / latin-ext / vietnamese subsets.
 
@@ -222,6 +237,8 @@ Engraver's ink on cool score stock, interrupted by three whole-field passages an
 - **Body** (Be Vietnam Pro 400, 1.0625rem, 1.65): Running text, capped at a 66ch measure globally.
 - **Small** (Be Vietnam Pro 400–500, 0.875rem, 1.5): Captions, hints, control labels, footnotes.
 - **Label** (Be Vietnam Pro 600, 0.75rem, 0.14em tracking, uppercase): Two inline role labels only — the composer-position role beside the teacher's name, and the level ordinal beside the level title. Both sit on the same baseline row as their partner.
+- **Notation** (Bravura 400, inherited size, 1.0): Inline musical marks in running text — the fermata over the demo note, the coda sign at the closing head.
+- **Dynamic** (Bravura 400, 2.4rem, 1.2, press green): The opening dynamic engraved at a system's head. Set larger than any inline mark because a dynamic is read at the same distance as the stave it sits under.
 
 ### Named Rules
 **The Italic Is A Voice Rule.** Display italic is reserved for someone speaking to the reader. If nobody is talking, it is not italic.
@@ -230,7 +247,9 @@ Engraver's ink on cool score stock, interrupted by three whole-field passages an
 
 **The No-Eyebrow Rule.** The uppercase 0.14em label exists only *inline*, on the baseline row of the thing it qualifies. It is never stacked above a heading as a kicker or eyebrow, and never used as a section label.
 
-**The Real-Glyph Rule.** Musical symbols are Bravura codepoints, never unicode stand-ins, never an image. Adding a symbol means re-cutting the subset; an uncut codepoint renders as nothing by design.
+**The Real-Glyph Rule.** Musical symbols are Bravura codepoints, never unicode stand-ins, never an image. Compound marks are *composed* from single glyphs rather than taken from ligature codepoints — `pp` is U+E520 twice, `mp` is U+E521 + U+E520, `mf` is U+E521 + U+E522, `ff` is U+E522 twice. Adding a symbol means re-cutting the subset; an uncut codepoint renders as nothing by design.
+
+**The Codepoint-Dump Rule.** SMuFL glyphs live in the Private Use Area, so they look like empty strings in editors, terminals, grep and diffs. Never audit notation by eye or by text search — dump the codepoints, or check the rendered screenshot. Treating a PUA string as empty is how a shipped mark gets reported as a missing one.
 
 **The Vietnamese-First Rule.** Any face added to this system must carry the full Vietnamese diacritic set and be self-hosted with `unicode-range` subsets. Coverage decides before character does.
 
@@ -245,7 +264,7 @@ Responsive behaviour is a short list of content-driven breakpoints, not a device
 The rehearsal-mark bar is sticky at the top with a 1.5px ink border on both edges; it wraps rather than scrolls, so the last destination cannot hide off the right edge.
 
 ### Named Rules
-**The Stave Is The Grid Rule.** Where a row needs separating from the next, it opens on a five-line system. The stave *is* the divider; nothing else divides anything. Never draw a plain rule directly above a stave — at ink weight it reads as a sixth, wrong staff line.
+**The Stave Is The Grid Rule.** Where a row needs separating from the next, it opens on a five-line system carrying that row's opening dynamic. The stave *is* the divider; nothing else divides anything. Never draw a plain rule directly above a stave — at ink weight it reads as a sixth, wrong staff line.
 
 **The Measure Rule.** Paragraphs are capped at 66ch by default and headings at 20–24ch. A full-bleed line of text is out of world.
 
@@ -262,12 +281,12 @@ The page is flat by conviction. Depth is carried by tonal fields — cool stock,
 
 ## Shapes
 
-Every corner on the page is square. Radius appears in exactly two places and neither is a surface: the focus ring rounds by 1px so a 2px outline does not read as a knife edge, and the scrollbar thumb is a pill because a square thumb is not a scrollbar. Borders come in three weights and no more: 1.5px ink for controls, rehearsal marks and the sticky bar; 1.5px for the pending bracket's two corner marks; 1px stock-edge for the two section rules. Staves are drawn at their own engraving weights and are not borders at all.
+Every corner on the page is square. Radius appears exactly once in the entire project, and it is not a surface: the focus ring rounds by 1px so a 2px outline does not read as a knife edge. Even the scrollbar thumb is square. Borders come in three weights and no more: 1.5px ink for controls, rehearsal marks and the sticky bar; 1.5px for the pending bracket's two corner marks; 1px stock-edge for the two section rules. Staves are drawn at their own engraving weights and are not borders at all.
 
 Silhouettes are rectangular and full-width: outlined controls stretch to their column, chips are plain padded rectangles, and the media well is a bracket-marked block rather than a framed card.
 
 ### Named Rules
-**The Square Corner Rule.** Radius is 0 on every surface and control. The only exceptions are the 1px focus ring and the scrollbar thumb.
+**The Square Corner Rule.** Radius is 0 on every surface, every control, and every browser furniture element the page themes. The single exception in the whole project is the 1px focus ring. One audit test: `border-radius` should appear exactly once in the source.
 
 ## Components
 
@@ -299,25 +318,30 @@ The system's navigation atom: a square 1.5px ink box, at least 2.1em wide and 2.
 A shipped component, not scaffolding: the mark an engraver leaves on an unresolved passage. A left-side vertical rule with 0.5rem corner returns top and bottom, 1.5px in warm grey (#8e8079), over a 4.5% red wash, with ink type at small size and a bold-italic lead phrase naming what is missing. The dark-passage variant swaps to a 5% white wash, light ink (#cdd3d6) and a cool grey stroke (#7d8890). It marks every slot awaiting the owner's real material — video, bio, testimonials, prices, access terms — and is deliberately quieter than any adjacent control.
 
 ### The Playable System (signature)
-The first system of the score, engraved rather than illustrated. SVG drawn to SMuFL's own metrics: one staff space equals 10 user units, glyph size is always four staff spaces, staff lines at 0.13 and stems at 0.12 staff spaces, correct stem directions flipping at the middle line, a ledger line under middle C, a barline after bar one, and a thin-then-thick final barline. Clef, metre and noteheads are Bravura codepoints. Pressing the control synthesises a struck-string phrase (four decaying partials, not a raw sine) and lights each notehead in editor's red as it sounds. The system scales to its column and engraves smaller rather than clipping, the way a pocket score does.
+The first system of the score, engraved rather than illustrated. SVG drawn to SMuFL's own metrics: one staff space equals 10 user units, glyph size is always four staff spaces, staff lines at 0.13 and stems at 0.12 staff spaces, correct stem directions flipping at the middle line, a ledger line under middle C, a barline after bar one, and a thin-then-thick final barline. Clef, metre and noteheads are Bravura codepoints, and the staff lines are drawn in full printing ink because this system is the printed original. Pressing the control synthesises a struck-string phrase (four decaying partials, not a raw sine) and lights each notehead in editor's red as it sounds. The system scales to its column and engraves smaller rather than clipping, the way a pocket score does.
 
-### The Level System
-The second, deliberately different stave implementation: five hairlines drawn as a `repeating-linear-gradient` (1.2px on a 9px period) instead of SVG, so they stay crisp at any row width and can span a whole row rather than shrinking into a badge. It opens each level row and is the only thing separating one level from the next. It is decorative-by-role and carries `aria-hidden`.
+### The Level System (signature)
+The second, deliberately different stave implementation, and the page's structural workhorse. Five hairlines drawn as a `repeating-linear-gradient` (1.2px on a 9px period) rather than SVG, so they stay crisp at any row width and can span a whole row instead of shrinking into a badge. They are ruled at the lighter stave weight, not full ink, because this stave carries marks and the marks must be darker than the ruling.
+
+At the head of every such stave sits an **opening dynamic** in press green at 2.4rem, positioned at the stave's foot line (`left: 0; top: 31px` in a 74px band), exactly where a score prints the dynamic a movement opens on. The four levels run `pp` → `mp` → `mf` → `ff`, so the ramp from beginner to advanced is stated in the score's own vocabulary before a word of copy is read; the section lede and the screen-reader text for each level both name that progression. The dynamics are composed from single SMuFL glyphs rather than ligature codepoints. The stave-and-dynamic band is `aria-hidden`, with the dynamic's name carried in visually-hidden text on the level heading instead.
 
 ### Named Rules
-**The Two Staves Rule.** Notation that must be *read* is SVG at SMuFL metrics with real glyphs. Structural staves that must span an arbitrary width are a repeating gradient. Never draw a readable system with a gradient, and never stretch an SVG system to fill a row.
+**The Two Staves Rule.** The page prints staves at two weights on purpose. Notation that must be *read* is SVG at SMuFL metrics with real glyphs, ruled in full printing ink — that is the printed original. Structural staves that must span an arbitrary width are a repeating gradient at the lighter ruled weight, so the dynamics and copy sitting on them stay the darker marks. Never draw a readable system with a gradient, never stretch an SVG system to fill a row, and never rule a content-carrying stave as dark as its content.
+
+**The Dynamic Opens The System Rule.** A structural stave is not decoration; it carries the mark that says what the row is. Where a stave opens a row of ranked content, engrave the opening dynamic at its head in press green. A bare five-line rule with nothing on it is an unfinished system.
 
 **The One Motion Rule.** The page has one authored motion moment: the teacher's margin notes write themselves in on intersection (700ms, opacity plus a 6px rise, once each), plus notehead highlighting during playback. Everything else is a 140–180ms state transition on a control. `prefers-reduced-motion` collapses all of it and reveals the notes immediately.
 
-**The Claimed-Surfaces Rule.** Browser defaults belong to no design system, so this one claims them: selection, caret, `accent-color`, scrollbar track and thumb, focus ring, and link underline offset (0.22em) and colour. Numerals that sit in columns take `tabular-nums`.
+**The Claimed-Surfaces Rule.** Browser defaults belong to no design system, so this one claims them: selection, caret, `accent-color`, scrollbar track and thumb (11px, caption ink on gathered stock, square), focus ring, and link underline offset (0.22em) and colour. Numerals that sit in columns take `tabular-nums`.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** open a new row or section on a five-line system and let it do the dividing.
+- **Do** open a new row or section on a five-line system, and engrave that row's opening dynamic at its head.
 - **Do** keep the saturated red to one filled control per passage; use ink outlines for every secondary action.
 - **Do** set anything the owner still owes as a pending bracket, in the pending ink family, with a bold-italic phrase naming exactly what is missing.
-- **Do** use real Bravura codepoints for musical symbols and re-cut the subset when you add one.
+- **Do** use real Bravura codepoints for musical symbols, compose compound marks from single glyphs, and re-cut the subset when you add one.
+- **Do** verify notation with a codepoint dump or the rendered screenshot; PUA glyphs read as empty strings in every text tool.
 - **Do** check any new text colour against its actual ground and record the ratio next to the token, as `--ink-3` (5.34:1) and `--focus-dark` (7.5:1 on the room) already do.
 - **Do** substitute the dark-passage focus colour inside the evening room; editor's red is only ~2.7:1 there.
 - **Do** give every interactive control a 44px minimum target, growing the hit area around a small printed mark rather than inflating the mark.
@@ -325,11 +349,12 @@ The second, deliberately different stave implementation: five hairlines drawn as
 - **Do** self-host any new face with `unicode-range` subsets and full Vietnamese coverage.
 
 ### Don't:
-- **Don't** round a corner. Radius is 0 except the 1px focus ring and the scrollbar thumb.
+- **Don't** round a corner. Radius is 0 everywhere; the 1px focus ring is the only exception in the project.
 - **Don't** add a shadow to anything but the primary action, and never a zero-offset halo or a hard offset shadow.
 - **Don't** build cards. Group with tone, spacing and staves.
 - **Don't** let a pending bracket, a chip, or a price note take the action colour.
 - **Don't** use press green for a hairline, border or divider.
+- **Don't** rule a content-carrying stave in full ink, or a readable notation system in the lighter ruled weight.
 - **Don't** stack an uppercase tracked label above a heading as a kicker or eyebrow; that label only ever sits inline beside its partner.
 - **Don't** use a unicode character, an emoji, or an icon font where a notation glyph belongs — and use inline SVG, not a glyph font, for UI icons.
 - **Don't** scatter hover reveals or entrance animations; the page has one authored motion moment and the budget is spent.
