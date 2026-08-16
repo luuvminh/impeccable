@@ -5,6 +5,10 @@ Design guidance for AI coding agents: 1 skill, 23 commands, and 59 deterministic
 
 Any Claude Code session opened on this repo picks it up automatically — no setup step.
 
+Tutorial and reference: [`docs/impeccable-getting-started.md`](docs/impeccable-getting-started.md) —
+a saved copy of [impeccable.style/tutorials/getting-started](https://impeccable.style/tutorials/getting-started/),
+rebuilt from the upstream repo and this v4.1.1 install because that domain is egress-blocked here.
+
 ## What's here
 
 | Path | What it is |
